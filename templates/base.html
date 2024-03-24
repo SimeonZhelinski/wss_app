@@ -23,63 +23,63 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navmenu">
-            
+
             {% if profile %}
-            <ul class="navbar-nav ms-auto">
-                <li class="navbar-item">
-                    <button class="btn btn-outline-primary btn-lg" type="submit">Create Project</button>
-                </li>
-                <li class="navbar-item">
-                    <button class="btn btn-outline-primary btn-lg ms-2" type="submit">My Projects</button>
-                </li>
-                <li class="navbar-item">
+                <ul class="navbar-nav ms-auto">
+                    <li class="navbar-item">
+                        <button class="btn btn-outline-primary btn-lg" type="submit">Create Project</button>
+                    </li>
+                    <li class="navbar-item">
+                        <button class="btn btn-outline-primary btn-lg ms-2" type="submit">My Projects</button>
+                    </li>
+                    <li class="navbar-item">
 
-                    <button class="btn btn-outline-primary btn-lg ms-2" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        Profile
-                    </button>
-
-                </li>
-                <li class="navbar-item">
-                    <div class="dropdown">
                         <button class="btn btn-outline-primary btn-lg ms-2" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                            About Us
+                            Profile
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-outline-primary">
-                            <li><a class="dropdown-item" href="#">Objective</a></li>
-                            <li><a class="dropdown-item" href="#">Contact us</a></li>
-                            <li><a class="dropdown-item" href="#">Reviews</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="navbar-item">
-                    <button class="btn btn-danger btn-lg ms-2" type="submit">Log Out</button>
-                </li>
-            </ul>
+
+                    </li>
+                    <li class="navbar-item">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary btn-lg ms-2" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                About Us
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-outline-primary">
+                                <li><a class="dropdown-item" href="#">Objective</a></li>
+                                <li><a class="dropdown-item" href="#">Contact us</a></li>
+                                <li><a class="dropdown-item" href="#">Reviews</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="navbar-item">
+                        <button class="btn btn-danger btn-lg ms-2" type="submit">Log Out</button>
+                    </li>
+                </ul>
 
             {% else %}
-            <ul class="navbar-nav ms-auto">
-                <li class="navbar-item">
-                    <button class="btn btn-danger btn-lg" type="submit">Sign In</button>
-                </li>
-                <li class="navbar-item">
-                    <button class="btn btn-outline-primary btn-lg ms-2" type="submit">Log In</button>
-                </li>
-                <li class="navbar-item">
-                    <div class="dropdown">
-                        <button class="btn btn-outline-primary btn-lg ms-2" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                            About Us
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-outline-primary">
-                            <li><a class="dropdown-item" href="#">Objective</a></li>
-                            <li><a class="dropdown-item" href="#">Contact us</a></li>
-                            <li><a class="dropdown-item" href="#">Reviews</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="navbar-item">
+                        <button class="btn btn-danger btn-lg" type="submit">Sign In</button>
+                    </li>
+                    <li class="navbar-item">
+                        <button class="btn btn-outline-primary btn-lg ms-2" type="submit">Log In</button>
+                    </li>
+                    <li class="navbar-item">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary btn-lg ms-2" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                About Us
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-outline-primary">
+                                <li><a class="dropdown-item" href="#">Objective</a></li>
+                                <li><a class="dropdown-item" href="#">Contact us</a></li>
+                                <li><a class="dropdown-item" href="#">Reviews</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
             {% endif %}
         </div>
     </div>
