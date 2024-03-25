@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main_content %}
+    
 <div class="obj">
     <h4 class="objective-title">Create Project</h4>
 </div>
 
 <nav class="navbar-create navbar-expand-lg">
     <div class="navbar-collapse">
-        <!-- Navbar without user -->
+      
         <ul class="navbar-nav mx-auto">
             <li class="navbar-item">
                 <div class="dropdown">
@@ -16,15 +17,15 @@
                         New Residential Building Project
                     </button>
                     <ul class="dropdown-menu dropdown-menu-outline-primary">
-                        <li><a class="dropdown-item" href="#">with existing infrastructure</a></li>
-                        <li><a class="dropdown-item" href="#">without existing infrastructure</a></li>
+                        <li><a class="dropdown-item" href="{% url 'build_with_infrastructure' %}">with existing infrastructure</a></li>
+                        <li><a class="dropdown-item" href="{% url 'build_no_infrastructure' %}">without existing infrastructure</a></li>
                     </ul>
                 </div>
             </li>
 
             <li class="navbar-item">
-                <button class="btn btn-primary btn-lg ms-2" id="btn-create" type="submit">New Infrastructure Project
-                </button>
+                <a href="{% url 'infrastructure_project' %}" class="btn btn-primary btn-lg ms-2" id="btn-create">New Infrastructure Project
+                </a>
             </li>
 
         </ul>

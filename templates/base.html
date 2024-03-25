@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <nav class="navbar navbar-expand-lg">
     <div class="container bg-light">
-        <a href="#" class="navbar-brand">
+        <a href="{% url 'index' %}" class="navbar-brand">
             <img src="{% static 'images/logo.png' %}" alt="Logo" width="100" height="100">
         </a>
 
@@ -27,7 +27,7 @@
             {% if profile %}
                 <ul class="navbar-nav ms-auto">
                     <li class="navbar-item">
-                        <button class="btn btn-outline-primary btn-lg" type="submit">Create Project</button>
+                        <a href="{% url 'create_project_index' %}" class="btn btn-outline-primary btn-lg">Create Project</a>
                     </li>
                     <li class="navbar-item">
                         <button class="btn btn-outline-primary btn-lg ms-2" type="submit">My Projects</button>
@@ -47,8 +47,8 @@
                                 About Us
                             </button>
                             <ul class="dropdown-menu dropdown-menu-outline-primary">
-                                <li><a class="dropdown-item" href="#">Objective</a></li>
-                                <li><a class="dropdown-item" href="#">Contact us</a></li>
+                                <li><a class="dropdown-item" href="{% url 'objective' %}">Objective</a></li>
+                                <li><a class="dropdown-item" href="{% url 'contact_us' %}">Contact us</a></li>
                                 <li><a class="dropdown-item" href="#">Reviews</a></li>
                             </ul>
                         </div>
@@ -61,7 +61,7 @@
             {% else %}
                 <ul class="navbar-nav ms-auto">
                     <li class="navbar-item">
-                        <button class="btn btn-danger btn-lg" type="submit">Sign In</button>
+                            <a href="{% url 'signin' %}" class="btn btn-danger btn-lg">Sign In</a>
                     </li>
                     <li class="navbar-item">
                         <button class="btn btn-outline-primary btn-lg ms-2" type="submit">Log In</button>
@@ -73,8 +73,8 @@
                                 About Us
                             </button>
                             <ul class="dropdown-menu dropdown-menu-outline-primary">
-                                <li><a class="dropdown-item" href="#">Objective</a></li>
-                                <li><a class="dropdown-item" href="#">Contact us</a></li>
+                                <li><a class="dropdown-item" href="{% url 'objective' %}">Objective</a></li>
+                                <li><a class="dropdown-item" href="{% url 'contact_us' %}">Contact us</a></li>
                                 <li><a class="dropdown-item" href="#">Reviews</a></li>
                             </ul>
                         </div>
