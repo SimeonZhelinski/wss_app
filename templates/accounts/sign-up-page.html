@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load filters %}
 {% block main_content %}
 
     <div class="container-form">
-        <h4>Log In</h4>
-        <form action="{% url 'login_user' %}?next={{ next }}" method="post">
+        <h4>Sign Up</h4>
+        <form action="{% url 'signup_user' %}" method="post">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="col-sm-3 col-form-label text-right">Email address</label>
-                {{ form.username }}
+                {{ form.email }}
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="col-sm-3 col-form-label text-right">Password</label>
-                {{ form.password }}
+                {{ form.password1 }}
             </div>
-            <button type="submit" class="btn btn-primary d-block mx-auto">Log In</button>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="col-sm-3 col-form-label text-right">Confirm password</label>
+                {{ form.password2 }}
+            </div>
+            <button type="submit" class="btn btn-primary d-block mx-auto">Sign Up</button>
 
             {% csrf_token %}
-
         </form>
     </div>
 

@@ -24,20 +24,18 @@
 
         <div class="collapse navbar-collapse" id="navmenu">
 
-            {% if profile %}
+            {% if request.user.is_authenticated %}
                 <ul class="navbar-nav ms-auto">
                     <li class="navbar-item">
-                        <a href="{% url 'create_project_index' %}" class="btn btn-outline-primary btn-lg">Create Project</a>
+                        <a href="{% url 'create_project_index' %}" class="btn btn-outline-primary btn-lg">Create
+                            Project</a>
                     </li>
                     <li class="navbar-item">
-                        <button class="btn btn-outline-primary btn-lg ms-2" type="submit">My Projects</button>
+                        <a href="{% url 'my_projects' %}" class="btn btn-outline-primary btn-lg ms-2">My Projects</a>
                     </li>
                     <li class="navbar-item">
 
-                        <button class="btn btn-outline-primary btn-lg ms-2" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                            Profile
-                        </button>
+                        <a href="{% url 'profile_details' pk=request.user.pk %}" class="btn btn-outline-primary btn-lg ms-2">Profile</a>
 
                     </li>
                     <li class="navbar-item">
@@ -54,17 +52,17 @@
                         </div>
                     </li>
                     <li class="navbar-item">
-                        <button class="btn btn-danger btn-lg ms-2" type="submit">Log Out</button>
+                        <a href="{% url 'logout_user' %}" class="btn btn-danger btn-lg ms-2">Log Out</a>
                     </li>
                 </ul>
 
             {% else %}
                 <ul class="navbar-nav ms-auto">
                     <li class="navbar-item">
-                            <a href="{% url 'signin' %}" class="btn btn-danger btn-lg">Sign In</a>
+                        <a href="{% url 'signup_user' %}" class="btn btn-danger btn-lg">Sign Up</a>
                     </li>
                     <li class="navbar-item">
-                        <button class="btn btn-outline-primary btn-lg ms-2" type="submit">Log In</button>
+                        <a href="{% url 'login_user' %}" class="btn btn-outline-primary btn-lg ms-2">Log In</a>
                     </li>
                     <li class="navbar-item">
                         <div class="dropdown">

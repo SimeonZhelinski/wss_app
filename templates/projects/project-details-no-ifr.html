@@ -9,16 +9,16 @@
     <div class="card mx-auto" style="width: 18rem;">
         <img src="{% static 'images/house.png' %}" class="card-img-top" alt="image">
         <div class="card-body">
-            <h5 class="card-title">Name of the project</h5>
+            <h5 class="card-title">{{ project_name }}</h5>
 
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <a href="{% url 'building_no_infrastructure_delete' slug_name=slug %}" class="btn btn-danger">
                 Delete Project
-            </button>
-            <button type="button" class="btn btn-primary">
+            </a>
+            <a href="{% url 'building_no_infrastructure_edit' slug_name=slug %}" class="btn btn-primary">
                 Edit Project
-            </button>
+            </a>
 
 
             <!-- Modal -->

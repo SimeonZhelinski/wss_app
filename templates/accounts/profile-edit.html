@@ -4,43 +4,14 @@
 
 <div class="container-form">
     <h4>Edit Profile</h4>
-    <form>
+    <form action="{% url 'profile_edit' pk=object.pk %}" method="post" enctype="multipart/form-data">
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Change email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Old password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">New password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Re-enter new password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">First Name</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Last Name</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Profile Picture</label>
-            <div class="input-group">
-                <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-                       aria-label="Upload">
-                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload</button>
-            </div>
+            {{ form.as_p }}
+            
         </div>
 
         <button type="submit" class="btn btn-primary d-block mx-auto">Edit</button>
-
+        {% csrf_token %}
     </form>
 </div>
 

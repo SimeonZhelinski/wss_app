@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -108,6 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+if DEBUG:
+    AUTH_PASSWORD_VALIDATORS = ()
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -132,9 +137,36 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = BASE_DIR / 'media_files'
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media_files/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+        }
+    }
+}
+
+AUTH_USER_MODEL = 'accounts.WssUser'
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGIN_URL = reverse_lazy('login_user')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')

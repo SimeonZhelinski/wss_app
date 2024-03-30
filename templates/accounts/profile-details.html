@@ -1,52 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main_content %}
-<div class="obj">
-    <h4 class="objective-title">Profile Details</h4>
-</div>
-<div class="container-profile">
+    
+    <div class="obj">
+        <h4 class="objective-title">Profile Details</h4>
+    </div>
+    <div class="container-profile">
 
-    <div class="card mx-auto" style="width: 18rem;">
-        <img src="{% static 'images/profile.jpg' %}" class="card-img-top" alt="image">
-        <div class="card-body">
-            <h5 class="card-title">First Name/Last Name if any</h5>
-            <h8 class="project-number">Number of created projects: #?</h8>
-            <p></p>
+        <div class="card mx-auto" style="width: 18rem;">
+            {% if object.profile_picture %}
+                <img src="{{ MEDIA_ }}{{ object.profile_picture.url }}" class="card-img-top" alt="image"/>
+            {% else %}
+                <img src="{% static 'images/profile.jpg' %}" class="card-img-top" alt="image"/>
+            {% endif %}
+
+            <div class="card-body">
+                <p class="card-title">{{ profile.user.email }}</p>
+
+                {% if object.pk == request.user.pk %}
+
+                    {% if object.full_name %}
+                        <h5 class="card-title">{{ object.full_name }}</h5>
+                    {% endif %}
+
+                    <h8 class="project-number">Number of created projects: #?</h8>
+                    <p></p>
 
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Delete Profile
-            </button>
+                    <a href="{% url 'profile_delete' pk=object.pk %}" class="btn btn-danger">
+                        Delete Profile
+                    </a>
 
-            <button type="button" class="btn btn-primary">
-                Edit Profile
-            </button>
+                    <a href="{% url 'profile_edit' pk=object.pk %}" class="btn btn-primary">
+                        Edit Profile
+                    </a>
+                {% endif %}
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete your
-                                profile ?</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="modal-footer mx-auto">
-                            <button type="button" class="btn btn-danger">Yes, do it!</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Discard</button>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
 
+        </div>
+        <div class="profile-details">
+            <h6>Number residential building projects: #?</h6>
+            <h6>Number infrastructure projects: #?</h6>
+        </div>
     </div>
-    <div class="profile-details">
-        <h6>Number residential building projects: #?</h6>
-        <h6>Number infrastructure projects: #?</h6>
-    </div>
-</div>
 {% endblock %}

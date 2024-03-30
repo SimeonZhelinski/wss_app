@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_content %}
+    <div class="obj">
+        <h4 class="objective-title">Delete Project</h4>
+    </div>
+    <div class="container-form">
+        <h4>Project Information Input</h4>
+        <form>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Project name</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">Existing plumbing depth</label>
+                        <input type="text" class="form-control" id="firstName">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Existing sewer depth</label>
+                        <input type="text" class="form-control" id="lastName">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">New plumbing length</label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">New sewer length</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">New plumbing diameter</label>
+                        <input type="text" class="form-control" id="firstName">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">New sewer diameter</label>
+                        <input type="text" class="form-control" id="lastName">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Exiting pavement</label>
+                        <select class="form-select form-select" aria-label="Small select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Delete Project
+                </button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete your
+                                    project ?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-footer mx-auto">
+                                <button type="button" class="btn btn-danger">Yes, do it!</button>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Discard</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </form>
+    </div>
+
+{% endblock %}

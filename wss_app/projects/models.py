@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.utils.text import slugify
 
 from wss_app.accounts.models import Profile
 
@@ -59,10 +60,28 @@ class ResidentialBuilding(models.Model):
         blank=False,
     )
 
+    slug = models.SlugField(
+        unique=True,
+        null=False,
+        blank=True,
+        editable=False,
+    )
+
     project_creator = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE
     )
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if not self.slug:
+            self.slug = slugify(f"{self.name}-{self.pk}")
+
+        super().save(*args, **kwargs)
 
     def clean(self):
         super().clean()
@@ -219,7 +238,25 @@ class InfrastructureProject(models.Model):
         blank=False,
     )
 
+    slug = models.SlugField(
+        unique=True,
+        null=False,
+        blank=True,
+        editable=False,
+    )
+
     project_creator = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE
     )
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if not self.slug:
+            self.slug = slugify(f"{self.name}-{self.pk}")
+
+        super().save(*args, **kwargs)

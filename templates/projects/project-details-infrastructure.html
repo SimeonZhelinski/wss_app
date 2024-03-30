@@ -9,36 +9,17 @@
     <div class="card mx-auto" style="width: 18rem;">
         <img src="{% static 'images/infrastructure.png' %}" class="card-img-top" alt="image">
         <div class="card-body">
-            <h5 class="card-title">Name of the project</h5>
+            <h5 class="card-title"> {{ project_name }}</h5>
 
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <a href="{% url 'infrastructure_delete' slug_name=slug %}" class="btn btn-danger">
                 Delete Project
-            </button>
-            <button type="button" class="btn btn-primary">
+            </a>
+            <a href="{% url 'infrastructure_edit' slug_name=slug %}" class="btn btn-primary">
                 Edit Project
-            </button>
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete your
-                                project ?</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="modal-footer mx-auto">
-                            <button type="button" class="btn btn-danger">Yes, do it!</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Discard</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </a>
+ 
         </div>
 
     </div>

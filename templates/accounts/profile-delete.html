@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_content %}
+
+    <div class="container-form">
+        <h4>Delete Profile</h4>
+        <form>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Change email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Old password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">New password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Re-enter new password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">First Name</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Last Name</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Profile Picture</label>
+                <div class="input-group">
+                    <input type="file" class="form-control" id="inputGroupFile04"
+                           aria-describedby="inputGroupFileAddon04"
+                           aria-label="Upload">
+                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload</button>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-danger d-block mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Delete Profile
+            </button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete your
+                                profile ?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-footer mx-auto">
+                            <button type="button" class="btn btn-danger">Yes, do it!</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Discard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}
