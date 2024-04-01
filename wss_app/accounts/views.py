@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import AccessMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import views as auth_views, login, logout
@@ -5,6 +6,14 @@ from django.views import generic as views
 from django.contrib.auth import forms as auth_forms
 
 from wss_app.accounts.models import WssUser, Profile
+
+
+class OwnerRequiredMixin(AccessMixin):
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.pk != kwargs.get('pk', None):
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
 
 
 class WssUserCreationForm(auth_forms.UserCreationForm):
@@ -19,6 +28,7 @@ class LogInUserView(auth_views.LoginView):
 
 
 class SignUpUserView(views.CreateView):
+
     template_name = 'accounts/sign-up-page.html'
     form_class = WssUserCreationForm
 

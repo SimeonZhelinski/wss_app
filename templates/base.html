@@ -25,7 +25,18 @@
         <div class="collapse navbar-collapse" id="navmenu">
 
             {% if request.user.is_authenticated %}
+
                 <ul class="navbar-nav ms-auto">
+
+                    <div class="d-flex align-items-center flex-grow-1 me-3">
+                        <h5 class="text-center mb-0">
+                            {% if request.user.profile.full_name %}
+                                Welcome, {{ request.user.profile.full_name }}
+                            {% else %}
+                                Welcome, {{ request.user.email }}
+                            {% endif %}
+                        </h5>
+                    </div>
                     <li class="navbar-item">
                         <a href="{% url 'create_project_index' %}" class="btn btn-outline-primary btn-lg">Create
                             Project</a>
@@ -35,7 +46,8 @@
                     </li>
                     <li class="navbar-item">
 
-                        <a href="{% url 'profile_details' pk=request.user.pk %}" class="btn btn-outline-primary btn-lg ms-2">Profile</a>
+                        <a href="{% url 'profile_details' pk=request.user.pk %}"
+                           class="btn btn-outline-primary btn-lg ms-2">Profile</a>
 
                     </li>
                     <li class="navbar-item">

@@ -1,78 +1,90 @@
 {% extends 'base.html' %}
+{% load filters %}
 {% load static %}
 {% block main_content %}
-<div class="obj">
-    <h4 class="objective-title">Create Project</h4>
-    <h5>New Infrastructure Project</h5>
-</div>
-<div class="container-form">
-    <h4>Project Information Input</h4>
-    <form>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Project name</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div class="obj">
+        <h4 class="objective-title">Create Project</h4>
+        <h5>New Infrastructure Project</h5>
+    </div>
+    <div class="container-form">
+        <h4>Project Information Input</h4>
+        <form action="{% url 'infrastructure_project' %}" method="post">
+            <div class="mb-3">
+                <label for="project-name" class="col-sm-3 col-form-label text-right">Project name</label>
+                {{ form.name|add_class:"form-control" }}
+                {% if form.name.errors %}
+                    <div class="error error-red">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="existing-plumbing-depth" class="form-label text-right">Existing plumbing
+                            depth</label>
+                        {{ form.existing_plumbing_depth|add_class:"form-control" }}
+                        {% if form.existing_plumbing_depth.errors %}
+                            <div class="error error-red">{{ form.existing_plumbing_depth.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="existing-sewer-depth" class="form-label text-right">Existing sewer depth</label>
+                        {{ form.existing_sewer_depth|add_class:"form-control" }}
+                        {% if form.existing_sewer_depth.errors %}
+                            <div class="error error-red">{{ form.existing_sewer_depth.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="new-plumbing-length" class="form-label text-right">New plumbing length</label>
+                        {{ form.new_plumbing_length|add_class:"form-control" }}
+                        {% if form.new_plumbing_length.errors %}
+                            <div class="error error-red">{{ form.new_plumbing_length.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="new-sewer-length" class="form-label text-right">New sewer length</label>
+                        {{ form.new_sewer_length|add_class:"form-control" }}
+                        {% if form.new_sewer_length.errors %}
+                            <div class="error error-red">{{ form.new_sewer_length.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="new-plumbing-diameter" class="form-label text-right">New plumbing diameter</label>
+                        {{ form.new_plumbing_diameter|add_class:"form-select form-control" }}
 
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="firstName" class="form-label">Existing plumbing depth</label>
-                    <input type="text" class="form-control" id="firstName">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="new-sewer-diameter" class="form-label text-right">New sewer diameter</label>
+                        {{ form.new_sewer_diameter|add_class:"form-select form-control" }}
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="lastName" class="form-label">Existing sewer depth</label>
-                    <input type="text" class="form-control" id="lastName">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="existing-pavement" class="form-label text-right">Existing pavement</label>
+                        {{ form.existing_pavement|add_class:"form-select form-control" }}
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="email" class="form-label">New plumbing length</label>
-                    <input type="email" class="form-control" id="email">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="password" class="form-label">New sewer length</label>
-                    <input type="password" class="form-control" id="password">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="firstName" class="form-label">New plumbing diameter</label>
-                    <input type="text" class="form-control" id="firstName">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="lastName" class="form-label">New sewer diameter</label>
-                    <input type="text" class="form-control" id="lastName">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Exiting pavement</label>
-                    <select class="form-select form-select" aria-label="Small select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
 
 
-            <button type="submit" class="btn btn-primary d-block mx-auto">Create & Calculate Parameters</button>
-
-    </form>
-</div>
+                <button type="submit" class="btn btn-primary d-block mx-auto">Create & Calculate Parameters</button>
+                {% csrf_token %}
+        </form>
+    </div>
 
 
 {% endblock %}

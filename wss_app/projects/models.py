@@ -1,63 +1,70 @@
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.text import slugify
 
-from wss_app.accounts.models import Profile
+from wss_app.accounts.models import Profile, WssUser
+from django.core.validators import MinLengthValidator
+
+UserModel = get_user_model()
 
 
 class ResidentialBuilding(models.Model):
     MAX_LENGTH_NAME = 100
+    MIN_LENGTH_NAME = 1
 
     name = models.CharField(
         max_length=MAX_LENGTH_NAME,
         null=False,
         blank=False,
+        validators=[MinLengthValidator(MIN_LENGTH_NAME), ],
     )
 
     bathroom_sink = models.PositiveIntegerField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
 
     kitchen_sink = models.PositiveIntegerField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
 
     toilet_seat = models.PositiveIntegerField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
 
     washing_machine = models.PositiveIntegerField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
 
     dishwasher = models.PositiveIntegerField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
 
     shower = models.PositiveIntegerField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
 
     bathtub = models.PositiveIntegerField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
 
     building_residence = models.PositiveIntegerField(
         null=False,
         blank=False,
+        validators=[MinValueValidator(1), ],
     )
 
     floor_siphon = models.PositiveIntegerField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
 
     slug = models.SlugField(
@@ -68,7 +75,7 @@ class ResidentialBuilding(models.Model):
     )
 
     project_creator = models.ForeignKey(
-        Profile,
+        WssUser,
         on_delete=models.CASCADE
     )
 
@@ -82,19 +89,6 @@ class ResidentialBuilding(models.Model):
             self.slug = slugify(f"{self.name}-{self.pk}")
 
         super().save(*args, **kwargs)
-
-    def clean(self):
-        super().clean()
-        if all(field <= 0 for field in [
-            self.bathroom_sink,
-            self.kitchen_sink,
-            self.toilet_seat,
-            self.washing_machine,
-            self.dishwasher,
-            self.shower,
-            self.bathtub,
-        ]):
-            raise ValidationError("You must have at least one Sanitary from the listed")
 
     class Meta:
         abstract = True
@@ -128,12 +122,16 @@ class BuildingWithExistingInfrastructure(ResidentialBuilding):
         blank=False,
     )
 
-    floors = models.PositiveIntegerField()
+    floors = models.PositiveIntegerField(
+        null=False,
+        blank=False,
+        validators=[MinValueValidator(1), ],
+    )
 
     def clean(self):
         super().clean()
-        if self.building_area > self.property_area:
-            raise ValidationError("Building area cannot be greater than property area")
+        if self.building_area + self.green_area > self.property_area:
+            raise ValidationError("The sum of the building area and green area cannot exceed the total property area.")
 
 
 class InfrastructureProject(models.Model):
@@ -188,12 +186,15 @@ class InfrastructureProject(models.Model):
         ('Concrete', 'Concrete'),
         ('Stone paving', 'Stone paving'),
         ('Pavers', 'Pavers'),
+        ('None', 'None')
     ]
+    MIN_LENGTH_NAME = 1
 
     name = models.CharField(
         max_length=MAX_LENGTH_NAME,
         null=False,
         blank=False,
+        validators=[MinLengthValidator(MIN_LENGTH_NAME), ],
     )
 
     existing_plumbing_depth = models.FloatField(
@@ -246,7 +247,7 @@ class InfrastructureProject(models.Model):
     )
 
     project_creator = models.ForeignKey(
-        Profile,
+        WssUser,
         on_delete=models.CASCADE
     )
 

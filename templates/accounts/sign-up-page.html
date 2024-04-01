@@ -8,15 +8,24 @@
         <form action="{% url 'signup_user' %}" method="post">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="col-sm-3 col-form-label text-right">Email address</label>
-                {{ form.email }}
+                {{ form.email|add_class:"form-control" }}
+                {% if form.email.errors %}
+                    <div class="error">{{ form.email.errors }}</div>
+                {% endif %}
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="col-sm-3 col-form-label text-right">Password</label>
-                {{ form.password1 }}
+                {{ form.password1|add_class:"form-control" }}
+                {% if form.password1.errors %}
+                    <div class="error">{{ form.password1.errors }}</div>
+                {% endif %}
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="col-sm-3 col-form-label text-right">Confirm password</label>
-                {{ form.password2 }}
+                {{ form.password2|add_class:"form-control" }}
+                {% if form.password2.errors %}
+                    <div class="error">{{ form.password2.errors }}</div>
+                {% endif %}
             </div>
             <button type="submit" class="btn btn-primary d-block mx-auto">Sign Up</button>
 

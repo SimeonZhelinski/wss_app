@@ -1,11 +1,11 @@
 from django.urls import path, include
 
 from wss_app.projects.views import create_project_index, NewResidentialBuildingNoInfrastructureView, \
-    NewResidentialBuildingWithInfrastructureView, NewInfrastructureProjectView, my_projects, \
+    NewResidentialBuildingWithInfrastructureView, NewInfrastructureProjectView,  \
     ResidentialBuildingNoInfrastructureDetailView, ResidentialBuildingWithInfrastructureDetailView, \
     InfrastructureProjectDetailView, ResidentialBuildingNoInfrastructureEditView, \
     ResidentialBuildingWithInfrastructureEditView, InfrastructureProjectEditView, InfrastructureProjectDeleteView, \
-    ResidentialBuildingNoInfrastructureDeleteView, ResidentialBuildingWithInfrastructureDeleteView
+    ResidentialBuildingNoInfrastructureDeleteView, ResidentialBuildingWithInfrastructureDeleteView, MyProjectsView
 
 urlpatterns = [
     path("", create_project_index, name="create_project_index"),
@@ -18,7 +18,7 @@ urlpatterns = [
     path("projects/infrastrutcure/",
          NewInfrastructureProjectView.as_view(),
          name="infrastructure_project"),
-    path("projects/my-projects/", my_projects, name="my_projects"),
+    path("projects/my-projects/", MyProjectsView.as_view(), name="my_projects"),
 
     path("projects/no_infrastrutcure/<slug:slug_name>/",
          include([

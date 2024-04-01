@@ -193,3 +193,7 @@ footer p {
 .navbar-collapse .btn#btn-create {
     width: 200px;
 }
+
+.error-red li {
+    color: red;
+}
