@@ -1,54 +1,78 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main_content %}
-<div class="obj">
-    <h4 class="objective-title">Project Details</h4>
-</div>
-<div class="container-profile">
-
-    <div class="card mx-auto" style="width: 18rem;">
-        <img src="{% static 'images/house.png' %}" class="card-img-top" alt="image">
-        <div class="card-body">
-            <h5 class="card-title">{{ project_name }}</h5>
-
-
-            <!-- Button trigger modal -->
-            <a href="{% url 'building_with_infrastructure_delete' slug_name=slug %}" class="btn btn-danger">
-                Delete Project
-            </a>
-            <a href="{% url 'building_with_infrastructure_edit' slug_name=slug %}" class="btn btn-primary">
-                Edit Project
-            </a>
-            
-           
-        </div>
-
+    <div class="obj">
+        <h4 class="objective-title">Project Details</h4>
     </div>
-    <div class="profile-details">
-        <div class="info">
-            <h5>Building plumbing diversion information :</h5>
-            <p>Diameter = DN....</p>
-            <p>v = ...m/s</p>
-            <p>q domestic = .... l/s</p>
-            <p>q fire = .... l/s</p>
-            <p>q overall = .... l/s</p>
+    <div class="container-profile">
 
-            <p>Type of water meter: Normal/Combined with Q3 = ...l/s D = DN...</p>
-            <p>Need for pumping station: Yes/No</p>
+        <div class="card mx-auto" style="width: 18rem;">
+            <img src="{% static 'images/house.png' %}" class="card-img-top" alt="image">
+            <div class="card-body">
+                <h5 class="card-title">{{ project_name }}</h5>
 
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    Delete Project
+                </button>
+                <a href="{% url 'building_with_infrastructure_edit' slug_name=slug %}" class="btn btn-primary">
+                    Edit Project
+                </a>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete your
+                                    project ?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-footer mx-auto">
+                                <form method="post"
+                                      action="{% url 'building_with_infrastructure_delete' slug_name=object.slug %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="confirm_delete" value="1">
+                                    <button type="submit" class="btn btn-danger">Yes, do it !</button>
+                                </form>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Discard</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
-        <div class="info">
-            <h5>Building sewer diversion information:</h5>
-            <p>Diameter = DN....</p>
-            <p>i = ... %</p>
-            <p>Q domestic ww = .... l/s</p>
-            <p>Q rain ww = .... l/s</p>
-            <p>Q overall ww = .... l/s</p>
+        <div class="profile-details">
+            <div class="info">
+                <h5>Building plumbing diversion information :</h5>
+                <p>Diameter = DN....</p>
+                <p>v = ...m/s</p>
+                <p>q domestic = .... l/s</p>
+                <p>q fire = .... l/s</p>
+                <p>q overall = .... l/s</p>
 
+                <p>Type of water meter: Normal/Combined with Q3 = ...l/s D = DN...</p>
+                <p>Need for pumping station: Yes/No</p>
+
+
+            </div>
+            <div class="info">
+                <h5>Building sewer diversion information:</h5>
+                <p>Diameter = DN....</p>
+                <p>i = ... %</p>
+                <p>Q domestic ww = .... l/s</p>
+                <p>Q rain ww = .... l/s</p>
+                <p>Q overall ww = .... l/s</p>
+
+            </div>
         </div>
     </div>
-</div>
 
 
 {% endblock %}

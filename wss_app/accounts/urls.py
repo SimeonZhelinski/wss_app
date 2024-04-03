@@ -1,6 +1,8 @@
 from django.urls import path, include
 from wss_app.accounts.views import LogInUserView, SignUpUserView, sign_out_user, ProfileDetailsView, ProfileUpdateView, \
-    ProfileDeleteView
+    UserDeleteView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('login/', LogInUserView.as_view(), name='login_user'),
@@ -11,7 +13,7 @@ urlpatterns = [
          include([
              path("", ProfileDetailsView.as_view(), name="profile_details"),
              path("edit/", ProfileUpdateView.as_view(), name="profile_edit"),
-             path("delete/", ProfileDeleteView.as_view(), name="profile_delete"),
+             path("delete/", UserDeleteView.as_view(), name="profile_delete"),
          ]),
          )
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

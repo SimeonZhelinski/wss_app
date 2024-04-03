@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main_content %}
-    
+
     <div class="obj">
         <h4 class="objective-title">Profile Details</h4>
     </div>
@@ -9,9 +9,10 @@
 
         <div class="card mx-auto" style="width: 18rem;">
             {% if object.profile_picture %}
-                <img src="{{ MEDIA_ }}{{ object.profile_picture.url }}" class="card-img-top" alt="image"/>
+                <img src="{{ object.profile_picture.url }}" class="profile-picture" alt="profile_picture">
             {% else %}
-                <img src="{% static 'images/profile.jpg' %}" class="card-img-top" alt="image"/>
+                <img src="{% static 'images/default-profile-picture.jpg' %}" alt="default_profile_picture"
+                     class="profile-picture">
             {% endif %}
 
             <div class="card-body">
@@ -23,7 +24,8 @@
                         <h5 class="card-title">{{ object.full_name }}</h5>
                     {% endif %}
 
-                    <h8 class="project-number">Number of created projects: #?</h8>
+                    <h8 class="project-number">Number of created projects:
+                        {{ total_projects_count }}</h8>
                     <p></p>
 
 
@@ -40,8 +42,8 @@
 
         </div>
         <div class="profile-details">
-            <h6>Number residential building projects: #?</h6>
-            <h6>Number infrastructure projects: #?</h6>
+            <h6>Number residential building projects: {{ residential_projects_count }}</h6>
+            <h6>Number infrastructure projects: {{ infrastructure_projects_count }}</h6>
         </div>
     </div>
 {% endblock %}

@@ -71,10 +71,6 @@ class BuildingWithoutExistingInfrastructureEditForm(BuildingWithoutExistingInfra
     pass
 
 
-class BuildingWithoutExistingInfrastructureDeleteForm(BuildingWithoutExistingInfrastructureBaseForm):
-    pass
-
-
 class BuildingWithExistingInfrastructureBaseForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
@@ -167,7 +163,8 @@ class InfrastructureProjectBaseForm(forms.ModelForm):
 
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Project name", 'required': True}),
-            "existing_plumbing_depth": forms.NumberInput(attrs={"placeholder": "Existing plumbing depth", 'required': True}),
+            "existing_plumbing_depth": forms.NumberInput(
+                attrs={"placeholder": "Existing plumbing depth", 'required': True}),
             "new_plumbing_length": forms.NumberInput(attrs={"placeholder": "New plumbing length", 'required': True}),
             "new_plumbing_diameter": forms.Select(attrs={"placeholder": "New plumbing diameter", 'required': True}),
             "existing_sewer_depth": forms.NumberInput(attrs={"placeholder": "Existing sewer depth", 'required': True}),

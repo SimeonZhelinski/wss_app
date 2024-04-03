@@ -1,9 +1,11 @@
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth import models as auth_models
 from django.utils.translation import gettext_lazy as _
 
 from wss_app.accounts.managers import WssUserManager
+from wss_app.accounts.validators import validate_picture_file_size
 
 
 class WssUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
@@ -47,6 +49,7 @@ class Profile(models.Model):
 
     profile_picture = models.ImageField(
         upload_to='profile_pictures',
+        validators=(validate_picture_file_size,),
         null=True,
         blank=True,
     )
@@ -55,6 +58,7 @@ class Profile(models.Model):
         WssUser,
         primary_key=True,
         on_delete=models.CASCADE,
+        related_name='profile',
     )
 
     @property

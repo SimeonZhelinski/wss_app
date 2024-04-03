@@ -1,14 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelform_factory
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy, reverse
 from django.views import generic as views, View
 from django.views.generic import DetailView
 
 from wss_app.accounts.models import Profile
 from wss_app.common.profile_helper import get_profile
 from wss_app.projects.forms import BuildingWithoutExistingInfrastructureCreateForm, \
-    BuildingWithExistingInfrastructureCreateForm, InfrastructureProjectCreateForm
+    BuildingWithExistingInfrastructureCreateForm, InfrastructureProjectCreateForm, \
+    BuildingWithoutExistingInfrastructureEditForm, BuildingWithExistingInfrastructureEditForm, \
+    InfrastructureProjectEditForm, InfrastructureProjectDeleteForm
 from wss_app.projects.models import BuildingWithoutExistingInfrastructure, BuildingWithExistingInfrastructure, \
     InfrastructureProject
 
@@ -152,11 +154,28 @@ class InfrastructureProjectDetailView(views.DetailView):
 
 
 class ResidentialBuildingNoInfrastructureEditView(views.UpdateView):
-    queryset = BuildingWithoutExistingInfrastructure.objects.all()
+    model = BuildingWithoutExistingInfrastructure
+    form_class = BuildingWithoutExistingInfrastructureEditForm
     template_name = 'projects/edit-project-no-ifr.html'
-    fields = '__all__'
     slug_field = 'slug'
     slug_url_kwarg = 'slug_name'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        instance = self.get_object()
+        initial.update({
+            "name": instance.name,
+            "bathroom_sink": instance.bathroom_sink,
+            "kitchen_sink": instance.kitchen_sink,
+            "toilet_seat": instance.toilet_seat,
+            "washing_machine": instance.washing_machine,
+            "dishwasher": instance.dishwasher,
+            "shower": instance.shower,
+            "bathtub": instance.bathtub,
+            "building_residence": instance.building_residence,
+            "floor_siphon": instance.floor_siphon,
+        })
+        return initial
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -164,14 +183,39 @@ class ResidentialBuildingNoInfrastructureEditView(views.UpdateView):
         context['profile'] = profile
         context['project_name'] = self.kwargs.get('name')
         return context
+
+    def get_success_url(self):
+        return reverse("building_no_infrastructure_details", kwargs={"slug_name": self.object.slug, })
 
 
 class ResidentialBuildingWithInfrastructureEditView(views.UpdateView):
-    queryset = BuildingWithExistingInfrastructure.objects.all()
+    model = BuildingWithExistingInfrastructure
+    form_class = BuildingWithExistingInfrastructureEditForm
     template_name = 'projects/edit-project-with-ifr.html'
-    fields = '__all__'
     slug_field = 'slug'
     slug_url_kwarg = 'slug_name'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        instance = self.get_object()
+        initial.update({
+            "name": instance.name,
+            "bathroom_sink": instance.bathroom_sink,
+            "kitchen_sink": instance.kitchen_sink,
+            "toilet_seat": instance.toilet_seat,
+            "washing_machine": instance.washing_machine,
+            "dishwasher": instance.dishwasher,
+            "shower": instance.shower,
+            "bathtub": instance.bathtub,
+            "building_residence": instance.building_residence,
+            "floor_siphon": instance.floor_siphon,
+            "building_area": instance.building_area,
+            "property_area": instance.property_area,
+            "green_area": instance.green_area,
+            "underground_parking_spots": instance.underground_parking_spots,
+            "floors": instance.floors,
+        })
+        return initial
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -179,14 +223,32 @@ class ResidentialBuildingWithInfrastructureEditView(views.UpdateView):
         context['profile'] = profile
         context['project_name'] = self.kwargs.get('name')
         return context
+
+    def get_success_url(self):
+        return reverse("building_with_infrastructure_details", kwargs={"slug_name": self.object.slug, })
 
 
 class InfrastructureProjectEditView(views.UpdateView):
-    queryset = InfrastructureProject.objects.all()
+    model = InfrastructureProject
+    form_class = InfrastructureProjectEditForm
     template_name = 'projects/edit-project-infrastructure.html'
-    fields = '__all__'
     slug_field = 'slug'
     slug_url_kwarg = 'slug_name'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        instance = self.get_object()
+        initial.update({
+            'name': instance.name,
+            'existing_plumbing_depth': instance.existing_plumbing_depth,
+            'new_plumbing_length': instance.new_plumbing_length,
+            'new_plumbing_diameter': instance.new_plumbing_diameter,
+            'existing_sewer_depth': instance.existing_sewer_depth,
+            'new_sewer_length': instance.new_sewer_length,
+            'new_sewer_diameter': instance.new_sewer_diameter,
+            'existing_pavement': instance.existing_pavement,
+        })
+        return initial
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -195,71 +257,63 @@ class InfrastructureProjectEditView(views.UpdateView):
         context['project_name'] = self.kwargs.get('name')
         return context
 
+    def get_success_url(self):
+        return reverse("infrastructure_details", kwargs={"slug_name": self.object.slug, })
+
 
 class ResidentialBuildingNoInfrastructureDeleteView(views.DeleteView):
-    queryset = BuildingWithoutExistingInfrastructure.objects.all()
-    template_name = 'projects/delete-project-no-ifr.html'
-    success_url = 'projects/profile-projects.html'
-    form_class = modelform_factory(
-        BuildingWithoutExistingInfrastructure,
-        fields='__all__',
-    )
+    model = BuildingWithoutExistingInfrastructure
+    template_name = 'projects/project-details-no-ifr.html'
     slug_field = 'slug'
     slug_url_kwarg = 'slug_name'
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["instance"] = self.object
-        return kwargs
+    success_url = reverse_lazy('my_projects')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         profile = get_profile()
         context['profile'] = profile
         return context
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return redirect(self.get_success_url())
 
 
 class ResidentialBuildingWithInfrastructureDeleteView(views.DeleteView):
-    queryset = BuildingWithExistingInfrastructure.objects.all()
-    template_name = 'projects/delete-project-with-ifr.html'
-    success_url = 'projects/profile-projects.html'
-    form_class = modelform_factory(
-        BuildingWithExistingInfrastructure,
-        fields='__all__',
-    )
+    model = BuildingWithExistingInfrastructure
+    template_name = 'projects/project-details-with-ifr.html'
     slug_field = 'slug'
     slug_url_kwarg = 'slug_name'
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["instance"] = self.object
-        return kwargs
+    success_url = reverse_lazy('my_projects')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         profile = get_profile()
         context['profile'] = profile
         return context
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return redirect(self.get_success_url())
 
 
 class InfrastructureProjectDeleteView(views.DeleteView):
-    queryset = InfrastructureProject.objects.all()
-    template_name = 'projects/delete-project-infrastructure.html'
-    success_url = 'projects/profile-projects.html'
-    form_class = modelform_factory(
-        InfrastructureProject,
-        fields='__all__',
-    )
+    model = InfrastructureProject
+    template_name = 'projects/project-details-infrastructure.html'
     slug_field = 'slug'
     slug_url_kwarg = 'slug_name'
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["instance"] = self.object
-        return kwargs
+    success_url = reverse_lazy('my_projects')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         profile = get_profile()
         context['profile'] = profile
         return context
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return redirect(self.get_success_url())
+

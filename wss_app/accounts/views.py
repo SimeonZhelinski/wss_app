@@ -1,11 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import AccessMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import views as auth_views, login, logout
 from django.views import generic as views
 from django.contrib.auth import forms as auth_forms
 
 from wss_app.accounts.models import WssUser, Profile
+from wss_app.projects.models import BuildingWithoutExistingInfrastructure, InfrastructureProject, \
+    BuildingWithExistingInfrastructure
 
 
 class OwnerRequiredMixin(AccessMixin):
@@ -28,7 +31,6 @@ class LogInUserView(auth_views.LoginView):
 
 
 class SignUpUserView(views.CreateView):
-
     template_name = 'accounts/sign-up-page.html'
     form_class = WssUserCreationForm
 
@@ -52,6 +54,19 @@ class ProfileDetailsView(views.DetailView):
 
     template_name = "accounts/profile-details.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.object.user
+        residential_projects_count = BuildingWithoutExistingInfrastructure.objects.filter(
+            project_creator=user).count() + BuildingWithExistingInfrastructure.objects.filter(
+            project_creator=user).count()
+        infrastructure_projects_count = InfrastructureProject.objects.filter(project_creator=user).count()
+        total_projects_count = residential_projects_count + infrastructure_projects_count
+        context['residential_projects_count'] = residential_projects_count
+        context['infrastructure_projects_count'] = infrastructure_projects_count
+        context['total_projects_count'] = total_projects_count
+        return context
+
 
 class ProfileUpdateView(views.UpdateView):
     queryset = Profile.objects.all()
@@ -71,6 +86,17 @@ class ProfileUpdateView(views.UpdateView):
         return super().form_valid(form)
 
 
-class ProfileDeleteView(views.DeleteView):
-    queryset = Profile.objects.all()
-    template_name = "accounts/profile-delete.html"
+class UserDeleteView(views.DeleteView):
+    model = WssUser
+    template_name = 'accounts/profile-delete.html'
+    success_url = reverse_lazy('index')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def delete(self, request, *args, **kwargs):
+        user = self.get_object()
+        if request.user != user:
+            return redirect('index')
+
+        return super().delete(request, *args, **kwargs)

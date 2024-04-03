@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load filters %}
 {% load static %}
 {% block main_content %}
 <div class="obj">
@@ -7,119 +8,145 @@
 </div>
 <div class="container-form">
     <h4>Project Information Input</h4>
-    <form>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Project name</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <form action="{% url 'building_with_infrastructure_edit' slug_name=object.slug %}" method="post">
+            <div class="mb-3">
+                <label for="project-name" class="col-sm-3 col-form-label text-right">Project name</label>
+                {{ form.name|add_class:"form-control" }}
+                {% if form.name.errors %}
+                    <div class="error error-red">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="bathroom-sink" class="form-label text-right">Bathroom sink</label>
+                        {{ form.bathroom_sink|add_class:"form-control" }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="building-area" class="form-label">Building area</label>
+                        {{ form.building_area|add_class:"form-control" }}
+                        {% if form.building_area.errors %}
+                            <div class="error error-red">{{ form.building_area.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="kitchen-sink" class="form-label">Kitchen sink</label>
+                        {{ form.kitchen_sink|add_class:"form-control" }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="property-area" class="form-label">Property area</label>
+                        {{ form.property_area|add_class:"form-control" }}
+                        {% if form.property_area.errors %}
+                            <div class="error error-red">{{ form.property_area.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="toilet-seat" class="form-label">Toilet seat</label>
+                        {{ form.toilet_seat|add_class:"form-control" }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="green-area" class="form-label">Green area</label>
+                        {{ form.green_area|add_class:"form-control" }}
+                        {% if form.green_area.errors %}
+                            <div class="error error-red">{{ form.green_area.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="washing-machine" class="form-label">Washing machine</label>
+                        {{ form.washing_machine|add_class:"form-control" }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
 
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="firstName" class="form-label">Bathroom sink</label>
-                    <input type="text" class="form-control" id="firstName">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="lastName" class="form-label">Building area</label>
-                    <input type="text" class="form-control" id="lastName">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="dishwasher" class="form-label">Dishwasher</label>
+                        {{ form.dishwasher|add_class:"form-control" }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="underground-parking-spots" class="form-label">Underground parking spots if
+                            any</label>
+                        {{ form.underground_parking_spots|add_class:"form-control" }}
+                        {% if form.underground_parking_spots.errors %}
+                            <div class="error error-red">{{ form.underground_parking_spots.errors }}</div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Kitchen sink</label>
-                    <input type="email" class="form-control" id="email">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="shower" class="form-label">Shower</label>
+                        {{ form.shower|add_class:"form-control" }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="shower" class="form-label">Floors</label>
+                        {{ form.floors|add_class:"form-control" }}
+                        {% if form.floors.errors %}
+                            <div class="error error-red">{{ form.floors.errors }}</div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="password" class="form-label">Property area</label>
-                    <input type="password" class="form-control" id="password">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="bathtub" class="form-label">Bathtub</label>
+                        {{ form.bathtub|add_class:"form-control" }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="floor-siphon" class="form-label">Floor siphon</label>
+                        {{ form.floor_siphon|add_class:"form-control" }}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="firstName" class="form-label">Toilet seat</label>
-                    <input type="text" class="form-control" id="firstName">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="building-residence" class="form-label">Number of building residence:</label>
+                        {{ form.building_residence|add_class:"form-control" }}
+                        {% if form.building_residence.errors %}
+                            <div class="error">{{ form.building_residence.errors }}</div>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="lastName" class="form-label">Percentage of green area</label>
-                    <input type="text" class="form-control" id="lastName">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Washing machine</label>
-                    <input type="email" class="form-control" id="email">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="firstName" class="form-label">Dishwasher</label>
-                    <input type="text" class="form-control" id="firstName">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="lastName" class="form-label">Underground parking spots if any</label>
-                    <input type="text" class="form-control" id="lastName">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Shower</label>
-                    <input type="email" class="form-control" id="email">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="password" class="form-label">Floors</label>
-                    <input type="password" class="form-control" id="password">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Thub</label>
-                    <input type="email" class="form-control" id="email">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="password" class="form-label">Floor siphon</label>
-                    <input type="password" class="form-control" id="password">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Number of building residence:</label>
-                    <input type="email" class="form-control" id="email">
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary d-block mx-auto">Edit & Calculate Parameters</button>
-
-    </form>
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="error error-red">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+                <button type="submit" class="btn btn-primary d-block mx-auto">Edit & Calculate Parameters</button>
+                {% csrf_token %}
+        </form>
 </div>
 
 
