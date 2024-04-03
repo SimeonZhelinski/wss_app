@@ -7,6 +7,8 @@ from django.views.generic import DetailView
 
 from wss_app.accounts.models import Profile
 from wss_app.common.profile_helper import get_profile
+from wss_app.projects.calculations import ResidenceBuildingWithoutInfrastructureCalculator, \
+    ResidenceBuildingWithInfrastructureCalculator
 from wss_app.projects.forms import BuildingWithoutExistingInfrastructureCreateForm, \
     BuildingWithExistingInfrastructureCreateForm, InfrastructureProjectCreateForm, \
     BuildingWithoutExistingInfrastructureEditForm, BuildingWithExistingInfrastructureEditForm, \
@@ -116,7 +118,11 @@ class ResidentialBuildingNoInfrastructureDetailView(views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        building = self.get_object()
+        calculator = ResidenceBuildingWithoutInfrastructureCalculator(building)
+        plumbing_info = calculator.calculate()
         profile = get_profile()
+        context['plumbing_info'] = plumbing_info
         context['profile'] = profile
         context['slug'] = self.kwargs.get(self.slug_url_kwarg)
         context['project_name'] = self.object.name if self.object else None
@@ -131,7 +137,11 @@ class ResidentialBuildingWithInfrastructureDetailView(views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        building = self.get_object()
+        calculator = ResidenceBuildingWithInfrastructureCalculator(building)
+        plumbing_info = calculator.calculate()
         profile = get_profile()
+        context['plumbing_info'] = plumbing_info
         context['profile'] = profile
         context['slug'] = self.kwargs.get(self.slug_url_kwarg)
         context['project_name'] = self.object.name if self.object else None
@@ -173,7 +183,6 @@ class ResidentialBuildingNoInfrastructureEditView(views.UpdateView):
             "shower": instance.shower,
             "bathtub": instance.bathtub,
             "building_residence": instance.building_residence,
-            "floor_siphon": instance.floor_siphon,
         })
         return initial
 
@@ -316,4 +325,3 @@ class InfrastructureProjectDeleteView(views.DeleteView):
         self.object = self.get_object()
         self.object.delete()
         return redirect(self.get_success_url())
-

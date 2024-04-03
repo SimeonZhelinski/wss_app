@@ -51,24 +51,39 @@
         <div class="profile-details">
             <div class="info">
                 <h5>Building plumbing diversion information :</h5>
-                <p>Diameter = DN....</p>
-                <p>v = ...m/s</p>
-                <p>q domestic = .... l/s</p>
-                <p>q fire = .... l/s</p>
-                <p>q overall = .... l/s</p>
+                <p>Diameter = {{ plumbing_info.diameter }}</p>
+                <p>Q dim = {{ plumbing_info.dimensional_maximum_second_water_quantity|floatformat:2 }} l/s</p>
+                <p>V = {{ plumbing_info.water_speed|floatformat:2 }} m/s</p>
+                <p>R = {{ plumbing_info.friction_losses|floatformat:2 }} kPa/m</p>
+                <p>q fire = {{ plumbing_info.fire_water|floatformat:2 }} l/s</p>
+                <p>q domestic = {{ plumbing_info.domestic_water_only|floatformat:2 }} l/s</p>
 
-                <p>Type of water meter: Normal/Combined with Q3 = ...l/s D = DN...</p>
-                <p>Need for pumping station: Yes/No</p>
+                <h6>Other information:</h6>
+                <p>q max daily = {{ plumbing_info.max_daily_water_quantity|floatformat:2 }} l/d</p>
+                <p>q average daily = {{ plumbing_info.average_daily_water_quantity|floatformat:2 }} m3/d</p>
+
+                <p>Type of water meter: {{ plumbing_info.water_meter_type }}</p>
+                <p>Need for pumping system: {{ plumbing_info.pump_needed }}</p>
+                {% if plumbing_info.staff_sewer_message %}
+                    <p>{{ plumbing_info.staff_water_message }}</p>
+                {% endif %}
 
 
             </div>
             <div class="info">
                 <h5>Building sewer diversion information:</h5>
-                <p>Diameter = DN....</p>
-                <p>i = ... %</p>
-                <p>Q domestic ww = .... l/s</p>
-                <p>Q rain ww = .... l/s</p>
-                <p>Q overall ww = .... l/s</p>
+                <p>Diameter = {{ plumbing_info.waste_water_diameter }} *</p>
+                <p>V = {{ plumbing_info.waste_water_speed|floatformat:2 }} l/s</p>
+                <p>i = {{ plumbing_info.slope }} (minimal, it depends on existing sewer depth)</p>
+                <p>Q domestic ww = {{ plumbing_info.domestic_waste_water_quantity|floatformat:2 }} l/s</p>
+                <p>Q rain ww = {{ plumbing_info.sum_rain_water|floatformat:2 }} l/s</p>
+                <p>Q overall ww = {{ plumbing_info.overall_waste_water|floatformat:2 }} l/s</p>
+                {% if plumbing_info.staff_sewer_message %}
+                    <p>{{ plumbing_info.staff_sewer_message }}</p>
+                {% endif %}
+                <div class="info">
+                    * If the slope can be bigger, diameter can be reduced (min. diameter DN150)
+                </div>
 
             </div>
         </div>

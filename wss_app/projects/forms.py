@@ -31,7 +31,6 @@ class BuildingWithoutExistingInfrastructureBaseForm(forms.ModelForm):
             'shower',
             'bathtub',
             'building_residence',
-            'floor_siphon',
         )
 
         widgets = {
@@ -45,7 +44,6 @@ class BuildingWithoutExistingInfrastructureBaseForm(forms.ModelForm):
             "bathtub": forms.NumberInput(attrs={"placeholder": "Number of bathtubs"}),
             "building_residence": forms.NumberInput(
                 attrs={"placeholder": "Number of building residences", 'required': True}),
-            "floor_siphon": forms.NumberInput(attrs={"placeholder": "Number of floor siphons"}),
         }
 
         labels = {
@@ -58,7 +56,6 @@ class BuildingWithoutExistingInfrastructureBaseForm(forms.ModelForm):
             "shower": "Shower",
             "bathtub": "Bathtub",
             "building_residence": "Building residences",
-            "floor_siphon": "Floor siphon",
 
         }
 

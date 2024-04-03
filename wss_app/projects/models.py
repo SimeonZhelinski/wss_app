@@ -62,11 +62,6 @@ class ResidentialBuilding(models.Model):
         validators=[MinValueValidator(1), ],
     )
 
-    floor_siphon = models.PositiveIntegerField(
-        null=True,
-        blank=True,
-    )
-
     slug = models.SlugField(
         unique=True,
         null=False,
@@ -99,6 +94,11 @@ class BuildingWithoutExistingInfrastructure(ResidentialBuilding):
 
 
 class BuildingWithExistingInfrastructure(ResidentialBuilding):
+    floor_siphon = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+    )
+
     building_area = models.FloatField(
         validators=[MinValueValidator(1.0), ],
         null=False,

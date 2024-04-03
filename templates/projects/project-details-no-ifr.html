@@ -52,19 +52,26 @@
         <div class="profile-details">
             <div class="info">
                 <h5>Building plumbing information:</h5>
-                <p>Diameter = DN....</p>
-                <p>v = ...m/s</p>
-                <p>q domestic = .... l/s</p>
-                <p>q overall = .... l/s</p>
+                <p>Diameter = {{ plumbing_info.diameter }}</p>
+                <p>Q dim = {{ plumbing_info.dimensional_maximum_second_water_quantity|floatformat:2 }} l/s</p>
+                <p>V = {{ plumbing_info.water_speed|floatformat:2 }} m/s</p>
+                <p>R = {{ plumbing_info.friction_losses|floatformat:2 }} kPa/m</p>
 
-                <p>Need for pumping station: Yes/No</p>
+                <h6>Other information:</h6>
+                <p>q max daily = {{ plumbing_info.max_daily_water_quantity|floatformat:2 }} l/d</p>
+                <p>q average daily = {{ plumbing_info.average_daily_water_quantity|floatformat:2 }} m3/d</p>
+                <p>Pumping station <a href="#">Common Detail</a></p>
+                {% if plumbing_info.staff_water_message %}
+                    <h6>{{ plumbing_info.staff_water_message }}</h6>
+                {% endif %}
 
-                <a href="#">Common Detail</a>
 
             </div>
             <div class="info">
                 <h5>Waste water tank for the building:</h5>
-                <p>Tank volume = ...m3</p>
+                <p>Q ww = {{ plumbing_info.waste_water_quantity }} l/d </p>
+                <p>Tank volume = {{ plumbing_info.tank_volume_liters }} liters
+                    or {{ plumbing_info.tank_volume_cubic_meters }} m3</p>
                 <a href="#">Common Detail</a>
             </div>
         </div>
