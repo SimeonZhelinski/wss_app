@@ -8,7 +8,7 @@ from django.views.generic import DetailView
 from wss_app.accounts.models import Profile
 from wss_app.common.profile_helper import get_profile
 from wss_app.projects.calculations import ResidenceBuildingWithoutInfrastructureCalculator, \
-    ResidenceBuildingWithInfrastructureCalculator
+    ResidenceBuildingWithInfrastructureCalculator, infrastructure_calculation
 from wss_app.projects.forms import BuildingWithoutExistingInfrastructureCreateForm, \
     BuildingWithExistingInfrastructureCreateForm, InfrastructureProjectCreateForm, \
     BuildingWithoutExistingInfrastructureEditForm, BuildingWithExistingInfrastructureEditForm, \
@@ -157,6 +157,8 @@ class InfrastructureProjectDetailView(views.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         profile = get_profile()
+        building = self.get_object()
+        context['price_info'] = infrastructure_calculation(building)
         context['profile'] = profile
         context['slug'] = self.kwargs.get(self.slug_url_kwarg)
         context['project_name'] = self.object.name if self.object else None

@@ -1,3 +1,4 @@
+import math
 from math import sqrt
 
 
@@ -227,3 +228,64 @@ class ResidenceBuildingWithInfrastructureCalculator:
             result['staff_sewer_message'] = staff_sewer_message
 
         return result
+
+
+def infrastructure_calculation(building):
+    plumbing_diameter = building.new_plumbing_diameter
+    sewer_diameter = building.new_sewer_diameter
+    plumbing_length = building.new_plumbing_length
+    sewer_length = building.new_sewer_length
+    pavement = building.existing_pavement
+
+    plumbing_pipe_with_installation_price = {
+        'DN90': 20,
+        'DN110': 30,
+        'DN125': 40,
+        'DN160': 64,
+        'DN200': 94,
+        'DN225': 118,
+        'DN250': 146,
+        'DN315': 232,
+        'DN355': 304,
+        'DN400': 360,
+    }
+
+    sewer_pipe_with_installation_price = {
+        'DN315': 60,
+        'DN400': 90,
+        'DN500': 150,
+        'DN630': 250,
+        'DN800': 340,
+        'DN1000': 450,
+    }
+
+    excavation_embankment_price = 120
+    const_for_sewer_excavation = 1.5
+
+    pavement_restoration_price = {
+        'Asphalt': 210,
+        'Concrete': 150,
+        'Stone paving': 320,
+        'Pavers': 280,
+        'None': 0
+    }
+
+    total_plumbing_price = (plumbing_pipe_with_installation_price[plumbing_diameter] * plumbing_length) + (
+            pavement_restoration_price[pavement] * plumbing_length) + (
+                                   excavation_embankment_price * plumbing_length)
+
+    total_sewer_price = (sewer_pipe_with_installation_price[sewer_diameter] * sewer_length) + (
+            pavement_restoration_price[pavement] * sewer_length) + (
+                                excavation_embankment_price * sewer_length * const_for_sewer_excavation)
+
+    length_between_manholes = {
+        'DN315': 60,
+        'DN400': 60,
+        'DN500': 80,
+        'DN630': 80,
+        'DN800': 100,
+        'DN1000': 150,
+    }
+    number_of_inspection_manholes = math.ceil(sewer_length / length_between_manholes[sewer_diameter])
+
+    return total_plumbing_price, total_sewer_price, number_of_inspection_manholes

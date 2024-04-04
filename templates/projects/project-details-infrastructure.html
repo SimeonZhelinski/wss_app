@@ -53,21 +53,20 @@
             <!-- If only water supply display only one -->
             <div class="info">
                 <h5>Plumbing information :</h5>
-                <p>Diameter = DN....</p>
-                <p>Length of the new plumbing: ... m</p>
-                <p>Existing pavement: Yes/No</p>
-                <p>Number of fire hydrants: ...</p>
-                <p>Еstimated cost of execution: ...lv</p>
+                <p>Diameter = {{ object.new_plumbing_diameter }}</p>
+                <p>Length of the new plumbing: {{ object.new_plumbing_length }} m</p>
+                <p>Existing pavement: {{ object.existing_pavement }}</p>
+                <p>Estimated cost of execution: {{ price_info.total_plumbing_price }} lv</p>
 
 
             </div>
             <div class="info">
                 <h5>Sewer information :</h5>
-                <p>Diameter = DN....</p>
-                <p>Length of the new sewer: ... m</p>
-                <p>Existing pavement: Yes/No</p>
-                <p>Street sewer inspection manholes: ...</p>
-                <p>Еstimated cost of execution: ...lv</p>
+                <p>Diameter = {{ object.new_sewer_diameter }}</p>
+                <p>Length of the new sewer: {{ object.new_plumbing_length }} m</p>
+                <p>Existing pavement: {{ object.existing_pavement }}</p>
+                <p>Street sewer inspection manholes: {{ price_info.number_of_inspection_manholes }}</p>
+                <p>Estimated cost of execution: {{ price_info.total_sewer_price }} lv</p>
 
             </div>
         </div>
