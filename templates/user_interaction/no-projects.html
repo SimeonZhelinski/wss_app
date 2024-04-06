@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_content %}
+
+    <div class="obj">
+        <h4 class="objective-title">Top Reviews</h4>
+    </div>
+    <div class="container-cards">
+
+            <p>You have to create a project to write a review.</p>
+    <a href="{% url 'create_project_index' %}">Go and create project</a>
+
+
+    </div>
+
+{% endblock %}

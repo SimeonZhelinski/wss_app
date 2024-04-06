@@ -22,3 +22,12 @@ def add_class(field, css_class):
     else:
         return field
 
+
+@register.filter
+def get_range(value):
+    return range(value)
+
+
+@register.filter
+def get_empty_range(value):
+    return range(5 - value)

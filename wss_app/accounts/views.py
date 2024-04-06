@@ -5,6 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth import views as auth_views, login, logout
 from django.views import generic as views
 from django.contrib.auth import forms as auth_forms
+from django.views.generic.detail import BaseDetailView
 
 from wss_app.accounts.models import WssUser, Profile
 from wss_app.projects.models import BuildingWithoutExistingInfrastructure, InfrastructureProject, \
@@ -47,11 +48,8 @@ def sign_out_user(request):
     return redirect('index')
 
 
-class ProfileDetailsView(views.DetailView):
-    queryset = Profile.objects \
-        .prefetch_related("user") \
-        .all()
-
+class ProfileDetailsView(LoginRequiredMixin, views.DetailView):
+    model = Profile
     template_name = "accounts/profile-details.html"
 
     def get_context_data(self, **kwargs):
@@ -68,7 +66,7 @@ class ProfileDetailsView(views.DetailView):
         return context
 
 
-class ProfileUpdateView(views.UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, views.UpdateView):
     queryset = Profile.objects.all()
     template_name = "accounts/profile-edit.html"
     fields = ("first_name", "last_name", "profile_picture")
@@ -86,7 +84,7 @@ class ProfileUpdateView(views.UpdateView):
         return super().form_valid(form)
 
 
-class UserDeleteView(views.DeleteView):
+class UserDeleteView(LoginRequiredMixin, views.DeleteView):
     model = WssUser
     template_name = 'accounts/profile-delete.html'
     success_url = reverse_lazy('index')

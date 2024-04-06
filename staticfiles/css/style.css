@@ -1,23 +1,23 @@
 .container {
     display: flex;
-    align-items: center; 
-    max-width: 90%; 
-    margin: 0 auto; 
-    background-color: #8fb8c9; 
+    align-items: center;
+    max-width: 90%;
+    margin: 0 auto;
+    background-color: #8fb8c9;
 }
 
 .text-container {
-    flex: 1; 
-    text-align: center; 
-    max-width: 50%; 
-    overflow-wrap: anywhere; 
+    flex: 1;
+    text-align: center;
+    max-width: 50%;
+    overflow-wrap: anywhere;
 }
 
 .container-index {
     display: flex;
-    align-items: center; 
-    max-width: 90%; 
-    margin: 0 auto; 
+    align-items: center;
+    max-width: 90%;
+    margin: 0 auto;
 }
 
 .text-container h5 {
@@ -29,13 +29,13 @@
 
 .image-container {
     padding-top: 70px;
-    flex-shrink: 0; 
-    max-width: 50%; 
-    overflow: hidden; 
+    flex-shrink: 0;
+    max-width: 50%;
+    overflow: hidden;
 }
 
 .image-container img {
-    width: 100%; 
+    width: 100%;
     height: auto;
     object-fit: cover;
 }
@@ -46,8 +46,8 @@
 }
 
 .navbar-brand img {
-    width: 100px; 
-    height: auto; 
+    width: 100px;
+    height: auto;
 }
 
 .title-container {
@@ -69,14 +69,14 @@
 }
 
 .container-form {
-    margin-top: 10px; 
-    width: 90%; 
-    max-width: 600px; 
-    padding: 20px; 
-    background-color: #f8f9fa; 
-    border: 1px solid #dee2e6; 
-    border-radius: 10px; 
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+    margin-top: 10px;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
 }
@@ -85,7 +85,7 @@
 
 .container-form h4 {
     text-align: center;
-    
+
 }
 
 body{
@@ -93,13 +93,13 @@ body{
     display: flex;
     flex-direction: column;
     background-image: url('../images/bg2.jpg');
-    background-size: cover; 
-    background-position: center; 
+    background-size: cover;
+    background-position: center;
 
 }
 
 footer{
-    margin-top: auto 0;
+    margin-top: auto;
 }
 
 footer p {
@@ -125,10 +125,10 @@ footer p {
 }
 
 .obj {
-    margin-top: 80px; 
-    width: 90%; 
-    max-width: 600px; 
-    padding: 20px; 
+    margin-top: 80px;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -137,30 +137,30 @@ footer p {
 
 .container-cards {
     display: flex;
-    flex-wrap: wrap; 
-    gap: 20px; 
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
-    
+
   }
-  
+
   .card {
-    width: calc(33.33% - 20px); 
+    width: calc(33.33% - 20px);
   }
 
   .navbar-create {
     display: flex;
     justify-content: center;
   }
-  
+
   .navbar-create .navbar-nav {
-    gap: 100px; 
+    gap: 100px;
     padding-bottom: 300px;
   }
 
   .profile-details {
     display: flex;
     justify-content: center;
-    gap: 50px; 
+    gap: 50px;
     padding-top: 50px;
 
   }
@@ -172,11 +172,11 @@ footer p {
 }
 
 .card-body {
-    text-align: center; 
+    text-align: center;
   }
 
 .modal-footer {
-    text-align: center; 
+    text-align: center;
   }
 
 .navbar-collapse {
@@ -187,7 +187,7 @@ footer p {
 }
 
 .navbar-collapse .btn {
-     width: 160px; 
+     width: 160px;
 }
 
 .navbar-collapse .btn#btn-create {
@@ -196,4 +196,36 @@ footer p {
 
 .error-red li {
     color: red;
+}
+
+.star-rating {
+    display: inline-block;
+    direction: rtl; /* Reverse the order of the stars */
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url('../images/star_no_rating.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating label:hover ~ label,
+.star-rating label:hover {
+    background-image: url('../images/star_rating.png');
+    background-position: right center;
+}
+
+.star-rating .star {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
 }

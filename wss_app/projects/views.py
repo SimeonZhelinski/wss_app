@@ -24,7 +24,7 @@ def create_project_index(request):
     return render(request, template_name='projects/create-project.html', context=context)
 
 
-class NewResidentialBuildingNoInfrastructureView(views.CreateView):
+class NewResidentialBuildingNoInfrastructureView(LoginRequiredMixin, views.CreateView):
     model = BuildingWithoutExistingInfrastructure
     form_class = BuildingWithoutExistingInfrastructureCreateForm
     template_name = 'projects/create-project-no-ifr.html'
@@ -44,7 +44,7 @@ class NewResidentialBuildingNoInfrastructureView(views.CreateView):
         return context
 
 
-class NewResidentialBuildingWithInfrastructureView(views.CreateView):
+class NewResidentialBuildingWithInfrastructureView(LoginRequiredMixin, views.CreateView):
     model = BuildingWithExistingInfrastructure
     form_class = BuildingWithExistingInfrastructureCreateForm
     template_name = 'projects/create-project-with-ifr.html'
@@ -64,7 +64,7 @@ class NewResidentialBuildingWithInfrastructureView(views.CreateView):
         return context
 
 
-class NewInfrastructureProjectView(views.CreateView):
+class NewInfrastructureProjectView(LoginRequiredMixin, views.CreateView):
     model = InfrastructureProject
     form_class = InfrastructureProjectCreateForm
     template_name = 'projects/create-project-infrastructure.html'
@@ -110,7 +110,7 @@ class MyProjectsView(LoginRequiredMixin, View):
         return render(request, 'projects/profile-projects.html', context)
 
 
-class ResidentialBuildingNoInfrastructureDetailView(views.DetailView):
+class ResidentialBuildingNoInfrastructureDetailView(LoginRequiredMixin, views.DetailView):
     model = BuildingWithoutExistingInfrastructure
     template_name = 'projects/project-details-no-ifr.html'
     slug_field = 'slug'
@@ -129,7 +129,7 @@ class ResidentialBuildingNoInfrastructureDetailView(views.DetailView):
         return context
 
 
-class ResidentialBuildingWithInfrastructureDetailView(views.DetailView):
+class ResidentialBuildingWithInfrastructureDetailView(LoginRequiredMixin, views.DetailView):
     model = BuildingWithExistingInfrastructure
     template_name = 'projects/project-details-with-ifr.html'
     slug_field = 'slug'
@@ -148,7 +148,7 @@ class ResidentialBuildingWithInfrastructureDetailView(views.DetailView):
         return context
 
 
-class InfrastructureProjectDetailView(views.DetailView):
+class InfrastructureProjectDetailView(LoginRequiredMixin, views.DetailView):
     model = InfrastructureProject
     template_name = 'projects/project-details-infrastructure.html'
     slug_field = 'slug'
@@ -166,7 +166,7 @@ class InfrastructureProjectDetailView(views.DetailView):
         return context
 
 
-class ResidentialBuildingNoInfrastructureEditView(views.UpdateView):
+class ResidentialBuildingNoInfrastructureEditView(LoginRequiredMixin, views.UpdateView):
     model = BuildingWithoutExistingInfrastructure
     form_class = BuildingWithoutExistingInfrastructureEditForm
     template_name = 'projects/edit-project-no-ifr.html'
@@ -200,7 +200,7 @@ class ResidentialBuildingNoInfrastructureEditView(views.UpdateView):
         return reverse("building_no_infrastructure_details", kwargs={"slug_name": self.object.slug, })
 
 
-class ResidentialBuildingWithInfrastructureEditView(views.UpdateView):
+class ResidentialBuildingWithInfrastructureEditView(LoginRequiredMixin, views.UpdateView):
     model = BuildingWithExistingInfrastructure
     form_class = BuildingWithExistingInfrastructureEditForm
     template_name = 'projects/edit-project-with-ifr.html'
@@ -240,7 +240,7 @@ class ResidentialBuildingWithInfrastructureEditView(views.UpdateView):
         return reverse("building_with_infrastructure_details", kwargs={"slug_name": self.object.slug, })
 
 
-class InfrastructureProjectEditView(views.UpdateView):
+class InfrastructureProjectEditView(LoginRequiredMixin, views.UpdateView):
     model = InfrastructureProject
     form_class = InfrastructureProjectEditForm
     template_name = 'projects/edit-project-infrastructure.html'
@@ -258,6 +258,7 @@ class InfrastructureProjectEditView(views.UpdateView):
             'existing_sewer_depth': instance.existing_sewer_depth,
             'new_sewer_length': instance.new_sewer_length,
             'new_sewer_diameter': instance.new_sewer_diameter,
+            'settlement_inhabitants': instance.settlement_inhabitants,
             'existing_pavement': instance.existing_pavement,
         })
         return initial
@@ -273,7 +274,7 @@ class InfrastructureProjectEditView(views.UpdateView):
         return reverse("infrastructure_details", kwargs={"slug_name": self.object.slug, })
 
 
-class ResidentialBuildingNoInfrastructureDeleteView(views.DeleteView):
+class ResidentialBuildingNoInfrastructureDeleteView(LoginRequiredMixin, views.DeleteView):
     model = BuildingWithoutExistingInfrastructure
     template_name = 'projects/project-details-no-ifr.html'
     slug_field = 'slug'
@@ -292,7 +293,7 @@ class ResidentialBuildingNoInfrastructureDeleteView(views.DeleteView):
         return redirect(self.get_success_url())
 
 
-class ResidentialBuildingWithInfrastructureDeleteView(views.DeleteView):
+class ResidentialBuildingWithInfrastructureDeleteView(LoginRequiredMixin, views.DeleteView):
     model = BuildingWithExistingInfrastructure
     template_name = 'projects/project-details-with-ifr.html'
     slug_field = 'slug'
@@ -311,7 +312,7 @@ class ResidentialBuildingWithInfrastructureDeleteView(views.DeleteView):
         return redirect(self.get_success_url())
 
 
-class InfrastructureProjectDeleteView(views.DeleteView):
+class InfrastructureProjectDeleteView(LoginRequiredMixin, views.DeleteView):
     model = InfrastructureProject
     template_name = 'projects/project-details-infrastructure.html'
     slug_field = 'slug'

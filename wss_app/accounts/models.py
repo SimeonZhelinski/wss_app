@@ -6,6 +6,11 @@ from django.utils.translation import gettext_lazy as _
 
 from wss_app.accounts.managers import WssUserManager
 from wss_app.accounts.validators import validate_picture_file_size
+import os
+
+
+def profile_picture_upload_path(instance, filename):
+    return os.path.join('profile_pictures', filename)
 
 
 class WssUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
@@ -48,7 +53,7 @@ class Profile(models.Model):
     )
 
     profile_picture = models.ImageField(
-        upload_to='profile_pictures',
+        upload_to=profile_picture_upload_path,
         validators=(validate_picture_file_size,),
         null=True,
         blank=True,
@@ -67,6 +72,3 @@ class Profile(models.Model):
             return f'{self.first_name} {self.last_name}'
 
         return self.first_name or self.last_name
-
-
-

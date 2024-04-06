@@ -1,6 +1,6 @@
 from django import forms
 
-from wss_app.user_interaction.models import ContactMessage
+from wss_app.user_interaction.models import ContactMessage, Review
 
 
 class ContactMessageForm(forms.ModelForm):
@@ -16,3 +16,9 @@ class ContactMessageForm(forms.ModelForm):
         "email": "Email",
         "message": "Message",
     }
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']

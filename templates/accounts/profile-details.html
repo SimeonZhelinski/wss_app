@@ -28,14 +28,21 @@
                         {{ total_projects_count }}</h8>
                     <p></p>
 
-
+                    <a href="{% url 'profile_edit' pk=object.pk %}" class="btn btn-primary">
+                        Edit Profile
+                    </a>
                     <a href="{% url 'profile_delete' pk=object.pk %}" class="btn btn-danger">
                         Delete Profile
                     </a>
 
-                    <a href="{% url 'profile_edit' pk=object.pk %}" class="btn btn-primary">
-                        Edit Profile
-                    </a>
+
+                    <div>
+                    <div> <p></p></div>
+                        <a href="{% url 'review_create' %}" class="btn btn-outline-primary">
+                            Create Review </a>
+                        <a href="{% url 'my_reviews' %}" class="btn btn-outline-primary">
+                            My Reviews </a>
+                    </div>
                 {% endif %}
 
             </div>

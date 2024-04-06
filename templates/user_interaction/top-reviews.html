@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load filters %}
+{% load static %}
+{% block main_content %}
+
+    <div class="obj">
+        <h4 class="objective-title">Top Reviews</h4>
+    </div>
+    <div class="container-cards">
+        {% if top_reviews %}
+            {% for review in top_reviews %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <p class="card-text">Rating:</p>
+                        <div class="star-rating">
+                            {% for i in 5|get_range reversed %}
+                                {% if i < review.rating %}
+                                    <img src="{% static 'images/star_rating.png' %}" alt="Filled Star" class="star">
+                                {% else %}
+                                    <img src="{% static 'images/star_no_rating.png' %}" alt="Empty Star" class="star">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div><p></p></div>
+                        <div class="card mx-auto"
+                             style="width: 100%; max-height: 15rem; overflow-y: auto; margin: 0 auto; text-align: center;">
+                            <div class="card-header">
+                                <label for="comment" class="form-label">Comment:</label>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{ review.comment }}</p>
+                            </div>
+                        </div>
+                        <p class="card-text">Posted on: {{ review.date_created }}</p>
+                    </div>
+                </div>
+
+                
+
+            {% endfor %}
+
+        {% else %}
+            <p>No reviews posted yet.</p>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

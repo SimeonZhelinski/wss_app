@@ -75,6 +75,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
+                        <label for="settlement-inhabitants" class="form-label text-right">Settlement inhabitants</label>
+                        {{ form.settlement_inhabitants|add_class:"form-select form-control" }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
                         <label for="existing-pavement" class="form-label text-right">Existing pavement</label>
                         {{ form.existing_pavement|add_class:"form-select form-control" }}
                     </div>

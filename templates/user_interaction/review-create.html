@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load filters %}
+{% load static %}
+{% block main_content %}
+
+    <div class="container-form">
+        <h4>Write Review</h4>
+        <form action="{% url 'review_create' %}" method="post" id="contactForm" class="needs-validation" novalidate>
+            {{ form.errors }}
+            <div class="mb-3">
+                <label for="message" class="col-sm-3 col-form-label text-right">Rating</label>
+                <div class="star-rating" id="star-rating">
+                    {% for i in "54321" %}
+                        <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}" required>
+                        <label for="star{{ i }}"></label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="message" class="col-sm-3 col-form-label text-right">Comment</label>
+                {{ form.comment|add_class:"form-control" }}
+                {% for error in form.comment.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary d-block mx-auto">Submit</button>
+            {% csrf_token %}
+        </form>
+    </div>
+
+    
+{% endblock %}
