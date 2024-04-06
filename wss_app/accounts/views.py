@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import AccessMixin
+from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import views as auth_views, login, logout

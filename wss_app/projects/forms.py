@@ -155,6 +155,7 @@ class InfrastructureProjectBaseForm(forms.ModelForm):
             'existing_sewer_depth',
             'new_sewer_length',
             'new_sewer_diameter',
+            'settlement_inhabitants',
             'existing_pavement',
         )
 
@@ -167,6 +168,7 @@ class InfrastructureProjectBaseForm(forms.ModelForm):
             "existing_sewer_depth": forms.NumberInput(attrs={"placeholder": "Existing sewer depth", 'required': True}),
             "new_sewer_length": forms.NumberInput(attrs={"placeholder": "New sewer length", 'required': True}),
             "new_sewer_diameter": forms.Select(attrs={"placeholder": "New sewer diameter", 'required': True}),
+            "settlement_inhabitants": forms.Select(attrs={"placeholder": "Settlement inhabitants", 'required': True}),
             "existing_pavement": forms.Select(attrs={"placeholder": "Existing pavement", 'required': True}),
         }
 
@@ -178,6 +180,7 @@ class InfrastructureProjectBaseForm(forms.ModelForm):
             "existing_sewer_depth": "Existing sewer depth",
             "new_sewer_length": "New sewer length",
             "new_sewer_diameter": "New sewer diameter",
+            "settlement_inhabitants": "Settlement inhabitants",
             "existing_pavement": "Existing pavement",
 
         }

@@ -162,6 +162,7 @@ class InfrastructureProjectDetailView(views.DetailView):
         context['profile'] = profile
         context['slug'] = self.kwargs.get(self.slug_url_kwarg)
         context['project_name'] = self.object.name if self.object else None
+
         return context
 
 

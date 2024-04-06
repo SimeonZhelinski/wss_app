@@ -69,19 +69,4 @@ class Profile(models.Model):
         return self.first_name or self.last_name
 
 
-# class AccountReview(models.Model):
-#     review = models.TextField()
-#
-#     rating = models.PositiveIntegerField(default=0)
-#
-#     created_at = models.DateTimeField()
-#
-#     reviewer = models.ForeignKey(
-#         Profile,
-#         on_delete=models.CASCADE
-#     )
-#
-#     def save(self, *args, **kwargs):
-#         if not self.created_at:
-#             self.created_at = timezone.now()
-#         return super(AccountReview, self).save(*args, **kwargs)
+

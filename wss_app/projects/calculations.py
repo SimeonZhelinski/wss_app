@@ -235,7 +235,10 @@ def infrastructure_calculation(building):
     sewer_diameter = building.new_sewer_diameter
     plumbing_length = building.new_plumbing_length
     sewer_length = building.new_sewer_length
+    settlement_inhabitants = building.settlement_inhabitants
     pavement = building.existing_pavement
+
+    fire_hydrants_price = 800
 
     plumbing_pipe_with_installation_price = {
         'DN90': 20,
@@ -248,6 +251,12 @@ def infrastructure_calculation(building):
         'DN315': 232,
         'DN355': 304,
         'DN400': 360,
+    }
+
+    length_between_fire_hydrants = {
+        'Bellow 1000 inhabitants': 200,
+        'Bellow 100 000 inhabitants': 150,
+        'Above 100 000 inhabitants': 100,
     }
 
     sewer_pipe_with_installation_price = {
@@ -270,9 +279,12 @@ def infrastructure_calculation(building):
         'None': 0
     }
 
+    number_of_fire_hydrants = math.ceil(plumbing_length / length_between_fire_hydrants[settlement_inhabitants])
+
     total_plumbing_price = (plumbing_pipe_with_installation_price[plumbing_diameter] * plumbing_length) + (
             pavement_restoration_price[pavement] * plumbing_length) + (
-                                   excavation_embankment_price * plumbing_length)
+                                   excavation_embankment_price * plumbing_length) + (
+                                       number_of_fire_hydrants * fire_hydrants_price)
 
     total_sewer_price = (sewer_pipe_with_installation_price[sewer_diameter] * sewer_length) + (
             pavement_restoration_price[pavement] * sewer_length) + (
@@ -288,4 +300,11 @@ def infrastructure_calculation(building):
     }
     number_of_inspection_manholes = math.ceil(sewer_length / length_between_manholes[sewer_diameter])
 
-    return total_plumbing_price, total_sewer_price, number_of_inspection_manholes
+    result = {
+        "total_plumbing_price": total_plumbing_price,
+        "total_sewer_price": total_sewer_price,
+        "number_of_inspection_manholes": number_of_inspection_manholes,
+        "number_of_fire_hydrants": number_of_fire_hydrants,
+    }
+
+    return result

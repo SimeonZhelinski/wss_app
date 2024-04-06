@@ -42,7 +42,8 @@ INSTALLED_APPS = [
 
     "wss_app.common.apps.CommonConfig",
     "wss_app.accounts.apps.AccountsConfig",
-    "wss_app.projects.apps.ProjectsConfig"
+    "wss_app.projects.apps.ProjectsConfig",
+    "wss_app.user_interaction.apps.UserInteractionConfig"
 ]
 
 MIDDLEWARE = [

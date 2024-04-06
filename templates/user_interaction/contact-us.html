@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load filters %}
+{% load static %}
+{% block main_content %}
+
+    <div class="container-form">
+        <h4>Contact Us</h4>
+        <form action="{% url 'contact_us' %}" method="post" id="contactForm" class="needs-validation" novalidate>
+
+            <div class="mb-3">
+                <label for="email" class="col-sm-3 col-form-label text-right">Email address</label>
+                {{ form.email|add_class:"form-control" }}
+                {% for error in form.email.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="mb-3">
+                <label for="message" class="col-sm-3 col-form-label text-right">Message</label>
+                {{ form.message|add_class:"form-control" }}
+                {% for error in form.message.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary d-block mx-auto">Submit</button>
+            {% csrf_token %}
+        </form>
+    </div>
+    
+{% endblock %}

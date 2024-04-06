@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load filters %}
 {% load static %}
 {% block main_content %}
 
@@ -6,10 +7,20 @@
     <h4>Edit Profile</h4>
     <form action="{% url 'profile_edit' pk=object.pk %}" method="post" enctype="multipart/form-data">
         <div class="mb-3">
-            {{ form.as_p }}
+            <label for="exampleInputEmail1" class="col-sm-3 col-form-label text-right">First name:</label>
+            {{ form.first_name|add_class:"form-control"  }}
             
         </div>
-
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="col-sm-3 col-form-label text-right">First name:</label>
+            {{ form.last_name|add_class:"form-control"  }}
+            
+        </div>
+                <div class="mb-3">
+            <label for="exampleInputEmail1" class="col-sm-3 col-form-label text-right">First name:</label>
+            {{ form.profile_picture|add_class:"form-control"  }}
+            
+        </div>
         <button type="submit" class="btn btn-primary d-block mx-auto">Edit</button>
         {% csrf_token %}
     </form>

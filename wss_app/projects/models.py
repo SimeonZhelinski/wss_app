@@ -170,6 +170,13 @@ class InfrastructureProject(models.Model):
         ('Pavers', 'Pavers'),
         ('None', 'None')
     ]
+
+    SETTLEMENT_INHABITANTS_CHOICES = [
+        ('Bellow 1000 inhabitants', 'Bellow 1000 inhabitants'),
+        ('Bellow 100 000 inhabitants', 'Bellow 100 000 inhabitants'),
+        ('Above 100 000 inhabitants', 'Above 100 000 inhabitants')
+    ]
+
     MIN_LENGTH_NAME = 1
 
     name = models.CharField(
@@ -211,6 +218,12 @@ class InfrastructureProject(models.Model):
 
     new_sewer_diameter = models.CharField(
         choices=SEWER_PIPE_DIAMETER_CHOICES,
+        null=False,
+        blank=False,
+    )
+
+    settlement_inhabitants = models.CharField(
+        choices=SETTLEMENT_INHABITANTS_CHOICES,
         null=False,
         blank=False,
     )
