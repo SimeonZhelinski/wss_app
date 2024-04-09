@@ -268,8 +268,14 @@ def infrastructure_calculation(building):
         'DN1000': 450,
     }
 
-    excavation_embankment_price = 120
-    const_for_sewer_excavation = 1.5
+    length_between_manholes = {
+        'DN315': 60,
+        'DN400': 60,
+        'DN500': 80,
+        'DN630': 80,
+        'DN800': 100,
+        'DN1000': 150,
+    }
 
     pavement_restoration_price = {
         'Asphalt': 210,
@@ -279,25 +285,20 @@ def infrastructure_calculation(building):
         'None': 0
     }
 
+    excavation_embankment_price = 120
+    const_for_sewer_excavation = 1.5
+
     number_of_fire_hydrants = math.ceil(plumbing_length / length_between_fire_hydrants[settlement_inhabitants])
 
     total_plumbing_price = (plumbing_pipe_with_installation_price[plumbing_diameter] * plumbing_length) + (
             pavement_restoration_price[pavement] * plumbing_length) + (
                                    excavation_embankment_price * plumbing_length) + (
-                                       number_of_fire_hydrants * fire_hydrants_price)
+                                   number_of_fire_hydrants * fire_hydrants_price)
 
     total_sewer_price = (sewer_pipe_with_installation_price[sewer_diameter] * sewer_length) + (
             pavement_restoration_price[pavement] * sewer_length) + (
                                 excavation_embankment_price * sewer_length * const_for_sewer_excavation)
 
-    length_between_manholes = {
-        'DN315': 60,
-        'DN400': 60,
-        'DN500': 80,
-        'DN630': 80,
-        'DN800': 100,
-        'DN1000': 150,
-    }
     number_of_inspection_manholes = math.ceil(sewer_length / length_between_manholes[sewer_diameter])
 
     result = {
@@ -308,3 +309,11 @@ def infrastructure_calculation(building):
     }
 
     return result
+
+
+class InfrastructureCalculator:
+    def __init__(self, building):
+        self.building = building
+
+    def calculate(self):
+        return infrastructure_calculation(self.building)

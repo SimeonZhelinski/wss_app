@@ -8,8 +8,8 @@
     <div class="container-profile">
 
         <div class="card mx-auto" style="width: 18rem;">
-            {% if object.profile_picture %}
-                <img src="{{ object.profile_picture.url }}" class="profile-picture" alt="profile_picture">
+            {% if user.profile.profile_picture %}
+                <img src="{{ user.profile.profile_picture.url }}" class="profile-picture" alt="profile_picture">
             {% else %}
                 <img src="{% static 'images/default-profile-picture.jpg' %}" alt="default_profile_picture"
                      class="profile-picture">

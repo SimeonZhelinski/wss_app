@@ -1,11 +1,10 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
-from django.shortcuts import redirect, render
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import views as auth_views, login, logout
 from django.views import generic as views
 from django.contrib.auth import forms as auth_forms
-from django.views.generic.detail import BaseDetailView
 
 from wss_app.accounts.models import WssUser, Profile
 from wss_app.projects.models import BuildingWithoutExistingInfrastructure, InfrastructureProject, \
@@ -28,14 +27,22 @@ class WssUserCreationForm(auth_forms.UserCreationForm):
 
 class LogInUserView(auth_views.LoginView):
     template_name = 'accounts/log-in-page.html'
-    redirect_authenticated_user = True
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('index'))
+        return super().dispatch(request, *args, **kwargs)
 
 
 class SignUpUserView(views.CreateView):
     template_name = 'accounts/sign-up-page.html'
     form_class = WssUserCreationForm
-
     success_url = reverse_lazy('index')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('index'))
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         result = super().form_valid(form)
@@ -48,18 +55,28 @@ def sign_out_user(request):
     return redirect('index')
 
 
-class ProfileDetailsView(LoginRequiredMixin, views.DetailView):
+class ProfileMixin:
+    def get_projects_count(self):
+        user = self.get_object()
+        residential_projects_count = (
+                BuildingWithoutExistingInfrastructure.objects.filter(project_creator=user).count() +
+                BuildingWithExistingInfrastructure.objects.filter(project_creator=user).count()
+        )
+        infrastructure_projects_count = InfrastructureProject.objects.filter(project_creator=user).count()
+        total_projects_count = residential_projects_count + infrastructure_projects_count
+        return residential_projects_count, infrastructure_projects_count, total_projects_count
+
+
+class ProfileDetailsView(LoginRequiredMixin, views.DetailView, ProfileMixin):
     model = Profile
     template_name = "accounts/profile-details.html"
 
+    def get_object(self, queryset=None):
+        return self.request.user
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.object.user
-        residential_projects_count = BuildingWithoutExistingInfrastructure.objects.filter(
-            project_creator=user).count() + BuildingWithExistingInfrastructure.objects.filter(
-            project_creator=user).count()
-        infrastructure_projects_count = InfrastructureProject.objects.filter(project_creator=user).count()
-        total_projects_count = residential_projects_count + infrastructure_projects_count
+        residential_projects_count, infrastructure_projects_count, total_projects_count = self.get_projects_count()
         context['residential_projects_count'] = residential_projects_count
         context['infrastructure_projects_count'] = infrastructure_projects_count
         context['total_projects_count'] = total_projects_count
@@ -78,19 +95,25 @@ class ProfileUpdateView(LoginRequiredMixin, views.UpdateView):
         profile = form.save(commit=False)
         if 'profile_picture' in self.request.FILES:
             profile.profile_pic = self.request.FILES['profile_picture']
-            profile.save()
-        else:
-            profile.save()
+        profile.save()
         return super().form_valid(form)
 
 
-class UserDeleteView(LoginRequiredMixin, views.DeleteView):
+class UserDeleteView(LoginRequiredMixin, views.DeleteView, ProfileMixin):
     model = WssUser
     template_name = 'accounts/profile-delete.html'
     success_url = reverse_lazy('index')
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        residential_projects_count, infrastructure_projects_count, total_projects_count = self.get_projects_count()
+        context['residential_projects_count'] = residential_projects_count
+        context['infrastructure_projects_count'] = infrastructure_projects_count
+        context['total_projects_count'] = total_projects_count
+        return context
 
     def delete(self, request, *args, **kwargs):
         user = self.get_object()

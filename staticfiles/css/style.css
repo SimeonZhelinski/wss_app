@@ -200,7 +200,7 @@ footer p {
 
 .star-rating {
     display: inline-block;
-    direction: rtl; /* Reverse the order of the stars */
+    direction: rtl;
 }
 
 .star-rating input[type="radio"] {

@@ -1,6 +1,5 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views, View
 
@@ -36,20 +35,30 @@ class ReviewCreateView(LoginRequiredMixin, views.CreateView):
     model = Review
     form_class = ReviewForm
     template_name = 'user_interaction/review-create.html'
+    success_url = reverse_lazy('my_reviews')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-    def get_success_url(self):
-        return reverse_lazy('profile_details', kwargs={'pk': self.request.user.pk})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['has_projects'] = self.has_projects(self.request.user)
+        return context
+
+    def has_projects(self, user):
+        return any([
+            InfrastructureProject.objects.filter(project_creator=user).exists(),
+            BuildingWithExistingInfrastructure.objects.filter(project_creator=user).exists(),
+            BuildingWithoutExistingInfrastructure.objects.filter(project_creator=user).exists()
+        ])
 
 
-# Edit view
 class ReviewUpdateView(LoginRequiredMixin, views.UpdateView):
     model = Review
     form_class = ReviewForm
     template_name = 'user_interaction/review-edit.html'
+    success_url = reverse_lazy('my_reviews')
 
     def get_object(self, queryset=None):
         return get_object_or_404(Review, pk=self.kwargs.get('pk'))
@@ -57,9 +66,6 @@ class ReviewUpdateView(LoginRequiredMixin, views.UpdateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('my_reviews')
 
 
 class ReviewDeleteView(LoginRequiredMixin, views.DeleteView):

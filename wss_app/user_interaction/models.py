@@ -12,7 +12,7 @@ class ContactMessage(models.Model):
         on_delete=models.CASCADE
     )
 
-    email = models.EmailField(
+    subject = models.CharField(
         null=False,
         blank=False,
     )
@@ -54,5 +54,5 @@ class Review(models.Model):
     )
 
     date_created = models.DateTimeField(
-        auto_now_add=True
+        auto_now=True,
     )

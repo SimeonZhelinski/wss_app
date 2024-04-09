@@ -60,7 +60,6 @@
                 <h6>Other information:</h6>
                 <p>q max daily = {{ plumbing_info.max_daily_water_quantity|floatformat:2 }} l/d</p>
                 <p>q average daily = {{ plumbing_info.average_daily_water_quantity|floatformat:2 }} m3/d</p>
-                <p>Pumping station <a href="#">Common Detail</a></p>
                 {% if plumbing_info.staff_water_message %}
                     <h6>{{ plumbing_info.staff_water_message }}</h6>
                 {% endif %}
@@ -72,8 +71,12 @@
                 <p>Q ww = {{ plumbing_info.waste_water_quantity }} l/d </p>
                 <p>Tank volume = {{ plumbing_info.tank_volume_liters }} liters
                     or {{ plumbing_info.tank_volume_cubic_meters }} m3</p>
-                <a href="#">Common Detail</a>
+                <a href="{% static 'docs/tanks_bg.pdf' %}">Common Detail</a>
             </div>
+        </div>
+            <div class="profile-details">
+            <p><i>All calculations are made based on Regulation No. 4 of June 17, 2005, for the design, construction, and
+                operation of building water supply and sewerage installations.</i></p>
         </div>
     </div>
 

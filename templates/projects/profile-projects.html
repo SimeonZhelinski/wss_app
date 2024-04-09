@@ -6,36 +6,43 @@
         <h4 class="objective-title">My Projects</h4>
     </div>
     <div class="container-cards">
+        {% if projects %}
+            {% for project in projects %}
+                <div class="card" style="width: 18rem;">
+                    {% if project.project_type == "InfrastructureProject" %}
+                        <img src="{% static 'images/infrastr.jpg' %}" class="card-img-top" alt="image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ project.name }}</h5>
+                            <a href="{% url 'infrastructure_details' slug_name=project.slug %}"
+                               class="btn btn-primary">Details</a>
+                        </div>
+                    {% endif %}
+                    {% if project.project_type == "BuildingWithExistingInfrastructure" %}
+                        <img src="{% static 'images/House-plumbing-diagram.png' %}" class="card-img-top" alt="image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ project.name }}</h5>
+                            <a href="{% url 'building_with_infrastructure_details' slug_name=project.slug %}"
+                               class="btn btn-primary">Details</a>
+                        </div>
+                    {% endif %}
+                    {% if project.project_type == "BuildingWithoutExistingInfrastructure" %}
+                        <img src="{% static 'images/septic-tank-for-home-plumbing-waste-system.png' %}" class="card-img-top" alt="image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ project.name }}</h5>
+                            <a href="{% url 'building_no_infrastructure_details' slug_name=project.slug %}"
+                               class="btn btn-primary">Details</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="container-cards">
 
-        {% for project in projects %}
-            <div class="card" style="width: 18rem;">
-                {% if project.project_type == "InfrastructureProject" %}
-                    <img src="{% static 'images/house.png' %}" class="card-img-top" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ project.name }}</h5>
-                        <a href="{% url 'infrastructure_details' slug_name=project.slug %}"
-                           class="btn btn-primary">Details</a>
-                    </div>
-                {% endif %}
-                {% if project.project_type == "BuildingWithExistingInfrastructure" %}
-                        <img src="{% static 'images/house.png' %}" class="card-img-top" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ project.name }}</h5>
-                        <a href="{% url 'building_with_infrastructure_details' slug_name=project.slug %}"
-                           class="btn btn-primary">Details</a>
-                    </div>
-                {% endif %}
-                {% if project.project_type == "BuildingWithoutExistingInfrastructure" %}
-                        <img src="{% static 'images/infrastructure.png' %}" class="card-img-top" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ project.name }}</h5>
-                        <a href="{% url 'building_no_infrastructure_details' slug_name=project.slug %}"
-                           class="btn btn-primary">Details</a>
-                    </div>
-                {% endif %}
+                <p>You have no projects yet.</p>
+                <a href="{% url 'create_project_index' %}">Go and create one</a>
+            
             </div>
-        {% endfor %}
-
+        {% endif %}
     </div>
 
 {% endblock %}

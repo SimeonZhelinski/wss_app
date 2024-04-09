@@ -50,26 +50,30 @@
 
         </div>
         <div class="profile-details">
-            <!-- If only water supply display only one -->
+
             <div class="info">
                 <h5>Plumbing information :</h5>
                 <p>Diameter = {{ object.new_plumbing_diameter }}</p>
-                <p>Length of the new plumbing: {{ object.new_plumbing_length }} m</p>
+                <p>Length of the new plumbing: {{ object.new_plumbing_length|floatformat:2 }} m</p>
                 <p>Existing pavement: {{ object.existing_pavement }}</p>
-                <p>Number of fire hydrants: {{ price_info.number_of_fire_hydrants }}</p>
-                <p>Estimated cost of execution: {{ price_info.total_plumbing_price }} lv</p>
+                <p>Number of fire hydrants: {{ plumbing_info.number_of_fire_hydrants }}</p>
+                <p>Estimated cost of execution: {{ plumbing_info.total_plumbing_price|floatformat:2 }} lv</p>
 
 
             </div>
             <div class="info">
                 <h5>Sewer information :</h5>
                 <p>Diameter = {{ object.new_sewer_diameter }}</p>
-                <p>Length of the new sewer: {{ object.new_plumbing_length }} m</p>
+                <p>Length of the new sewer: {{ object.new_sewer_length|floatformat:2 }} m</p>
                 <p>Existing pavement: {{ object.existing_pavement }}</p>
-                <p>Street sewer inspection manholes: {{ price_info.number_of_inspection_manholes }}</p>
-                <p>Estimated cost of execution: {{ price_info.total_sewer_price }} lv</p>
+                <p>Street sewer inspection manholes: {{ plumbing_info.number_of_inspection_manholes }}</p>
+                <p>Estimated cost of execution: {{ plumbing_info.total_sewer_price|floatformat:2 }} lv</p>
 
             </div>
+        </div>
+        <div class="profile-details">
+            <p><i>The number of fire hydrants calculations are made based on Regulation No. Iз-1971 of October 29, 2009,
+                for construction-technical rules and norms for ensuring safety in case of fire. </i></p>
         </div>
     </div>
 

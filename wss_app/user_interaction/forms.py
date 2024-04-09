@@ -6,14 +6,14 @@ from wss_app.user_interaction.models import ContactMessage, Review
 class ContactMessageForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
-        fields = ['email', 'message']
+        fields = ['subject', 'message']
 
     widgets = {
-        "email": forms.EmailInput(attrs={"placeholder": "Please enter email", 'required': True}),
+        "subject": forms.EmailInput(attrs={"placeholder": "Please enter subject", 'required': True}),
         "message": forms.Textarea(attrs={"placeholder": "Enter your message", 'required': True}),
     }
     labels = {
-        "email": "Email",
+        "subject": "Subject",
         "message": "Message",
     }
 
