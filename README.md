@@ -32,13 +32,13 @@ The project is deployed in PythonAnywhere and you can access it from the followi
 - Seven main forms are used for the project.
 
 
-##### The project is developed using the following technologies:
-**Back-end:** Python, Django Framework
-**Front-end:** Custom HTML, CSS and additional components built with Bootstrap.
-**Database:** PostgreSQL
+#### The project is developed using the following technologies:
+- **Back-end:** Python, Django Framework
+- **Front-end:** Custom HTML, CSS and additional components built with Bootstrap.
+- **Database:** PostgreSQL
 
 
-##### Screenshots from the web application:
+#### Screenshots from the web application:
 
 - Home page:
 
@@ -62,7 +62,7 @@ The project is deployed in PythonAnywhere and you can access it from the followi
 
 - Project type creation page:
 
-![](https://github.com/SimeonZhelinski/wss_app/blob/main/app_screenshots/user_page.png)
+![](https://github.com/SimeonZhelinski/wss_app/blob/main/app_screenshots/project_creation.png)
 
 - Project with existing infrastructure creation page:
 
