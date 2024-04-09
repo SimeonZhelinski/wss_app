@@ -13,7 +13,7 @@ The project is deployed in PythonAnywhere and you can access it from the followi
 
 ### Tech Description:
 
-#####Models (7):
+##### Models (7):
 - WssUser
 - Profile
 - BuildingWithoutExistingInfrastructure
@@ -22,25 +22,25 @@ The project is deployed in PythonAnywhere and you can access it from the followi
 - ContactMessage
 - Review
 
-#####Views (29):
+##### Views (29):
 - Six views are Function Based Views and the other twenty three are Class Based Views.
 
-#####Templates (26):
+##### Templates (26):
 - Django Template Language is used with some additional help of Bootstrap.
 
-#####Forms (7):
+##### Forms (7):
 - Seven main forms are used for the project.
 
 
-#####The project is developed using the following technologies:
+##### The project is developed using the following technologies:
 **Back-end:** Python, Django Framework
 **Front-end:** Custom HTML, CSS and additional components built with Bootstrap.
 **Database:** PostgreSQL
 
 
-#####Screenshots from the web application:
+##### Screenshots from the web application:
 
--Home page:
+- Home page:
 
 ![](https://github.com/SimeonZhelinski/wss_app/blob/main/app_screenshots/index.png)
 
@@ -108,7 +108,7 @@ The project is deployed in PythonAnywhere and you can access it from the followi
 
 ![](https://github.com/SimeonZhelinski/wss_app/blob/main/app_screenshots/staff_admin.png)
 
-#####Regulations:
+##### Regulations:
 - The number of fire hydrants calculations are made based on Regulation No. Iз-1971 of October 29, 2009, for construction-technical rules and norms for ensuring safety in case of fire.
 - All calculations are made based on Regulation No. 4 of June 17, 2005, for the design, construction, and operation of building water supply and sewerage installations.
 - The prices are approximate averages for the market and depend on various factors such as the materials used, as well as the manufacturing costs of the contracting company chosen for the project.
