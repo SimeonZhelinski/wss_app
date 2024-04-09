@@ -4,9 +4,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views, View
 
+from wss_app.accounts.views import OwnerRequiredMixin
 from wss_app.common.profile_helper import get_profile
 from wss_app.projects.calculations import ResidenceBuildingWithoutInfrastructureCalculator, \
-    ResidenceBuildingWithInfrastructureCalculator, infrastructure_calculation, InfrastructureCalculator
+    ResidenceBuildingWithInfrastructureCalculator, InfrastructureCalculator
 from wss_app.projects.forms import BuildingWithoutExistingInfrastructureCreateForm, \
     BuildingWithExistingInfrastructureCreateForm, InfrastructureProjectCreateForm, \
     BuildingWithoutExistingInfrastructureEditForm, BuildingWithExistingInfrastructureEditForm, \

@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views, View
 
+from wss_app.accounts.views import OwnerRequiredMixin
 from wss_app.common.profile_helper import get_profile
 from wss_app.projects.models import InfrastructureProject, BuildingWithoutExistingInfrastructure, \
     BuildingWithExistingInfrastructure
@@ -54,7 +55,7 @@ class ReviewCreateView(LoginRequiredMixin, views.CreateView):
         ])
 
 
-class ReviewUpdateView(LoginRequiredMixin, views.UpdateView):
+class ReviewUpdateView(LoginRequiredMixin, OwnerRequiredMixin, views.UpdateView):
     model = Review
     form_class = ReviewForm
     template_name = 'user_interaction/review-edit.html'
@@ -68,7 +69,7 @@ class ReviewUpdateView(LoginRequiredMixin, views.UpdateView):
         return super().form_valid(form)
 
 
-class ReviewDeleteView(LoginRequiredMixin, views.DeleteView):
+class ReviewDeleteView(LoginRequiredMixin, OwnerRequiredMixin, views.DeleteView):
     model = Review
     success_url = reverse_lazy('my_reviews')
 

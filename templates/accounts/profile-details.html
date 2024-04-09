@@ -16,12 +16,12 @@
             {% endif %}
 
             <div class="card-body">
-                <p class="card-title">{{ profile.user.email }}</p>
+                <p class="card-title">{{ user.email }}</p>
 
-                {% if object.pk == request.user.pk %}
+                {% if user.pk == request.user.pk %}
 
-                    {% if object.full_name %}
-                        <h5 class="card-title">{{ object.full_name }}</h5>
+                    {% if user.profile.full_name %}
+                        <h5 class="card-title">{{ user.profile.full_name }}</h5>
                     {% endif %}
 
                     <h8 class="project-number">Number of created projects:

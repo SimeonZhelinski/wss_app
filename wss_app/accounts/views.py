@@ -6,6 +6,7 @@ from django.contrib.auth import views as auth_views, login, logout
 from django.views import generic as views
 from django.contrib.auth import forms as auth_forms
 
+from wss_app.accounts.forms import WssUserCreationForm
 from wss_app.accounts.models import WssUser, Profile
 from wss_app.projects.models import BuildingWithoutExistingInfrastructure, InfrastructureProject, \
     BuildingWithExistingInfrastructure
@@ -13,16 +14,19 @@ from wss_app.projects.models import BuildingWithoutExistingInfrastructure, Infra
 
 class OwnerRequiredMixin(AccessMixin):
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.pk != kwargs.get('pk', None):
+    def _handle_no_permission(self):
+        object = super().get_object()
+
+        if not self.request.user.is_authenticated or object.user != self.request.user:
             return self.handle_no_permission()
-        return super().dispatch(request, *args, **kwargs)
 
+    def get(self, *args, **kwargs):
+        return self._handle_no_permission() or \
+            super().get(*args, **kwargs)
 
-class WssUserCreationForm(auth_forms.UserCreationForm):
-    class Meta(auth_forms.UserCreationForm.Meta):
-        model = WssUser
-        fields = ('email',)
+    def post(self, *args, **kwargs):
+        return self._handle_no_permission() or \
+            super().post(*args, **kwargs)
 
 
 class LogInUserView(auth_views.LoginView):
