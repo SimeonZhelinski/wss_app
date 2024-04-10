@@ -28,7 +28,6 @@ DEBUG = os.environ.get("DEBUG", 1)
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1").split(" ")
 CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS]
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -127,6 +126,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     BASE_DIR / 'staticfiles',
 )
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_ROOT = BASE_DIR / 'media_files'
 
