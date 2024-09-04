@@ -1,4 +1,4 @@
-## SoftUni Django Advanced Project
+## SoftUni Django Advanced Project ver.1.0
 
 This is my project for SoftUni Django Advanced Module.
 
