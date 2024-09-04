@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
-
+from decouple import config
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,14 +20,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*n#ua!ybcwnj9xum^w7su3a*b(9)3)_!@@1=9bpsv$(=pcc61('
+
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", 1)
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1").split(" ")
-CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS]
+DEBUG = True
+
+ALLOWED_HOSTS = ['2b83-78-130-237-60.ngrok-free.app', '127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = ["https://2b83-78-130-237-60.ngrok-free.app", 'https://127.0.0.1']
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -78,16 +81,28 @@ WSGI_APPLICATION = 'wss_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "wss_app_database",
-        "USER": "postgres",
-        "PASSWORD": "simo88*",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "wss_app_database",
+            "USER": "postgres",
+            "PASSWORD": "simo88*",
+            "HOST": "127.0.0.1",
+            "PORT": "5432",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "wssapp_db",
+            "USER": "cvaalvzise",
+            "PASSWORD": "xGJSCxFdBFmPEc$F",
+            "HOST": "wssapp-server.postgres.database.azure.com",
+            "PORT": "5432",
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -127,7 +142,7 @@ STATICFILES_DIRS = (
     BASE_DIR / 'staticfiles',
 )
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_ROOT = BASE_DIR / 'media_files'
 

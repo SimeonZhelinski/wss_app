@@ -3,8 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views, View
-
-from wss_app.accounts.views import OwnerRequiredMixin
 from wss_app.common.profile_helper import get_profile
 from wss_app.projects.calculations import ResidenceBuildingWithoutInfrastructureCalculator, \
     ResidenceBuildingWithInfrastructureCalculator, InfrastructureCalculator
