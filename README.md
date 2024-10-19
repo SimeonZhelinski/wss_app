@@ -2,8 +2,6 @@
 
 This is my project for SoftUni Django Advanced Module.
 
-The project is deployed in PythonAnywhere and you can access it from the following link:
-
 
 # Water Supply & Sewerage Project Manager
 /WSS Project Manager/ or WSS for short.
